@@ -23,7 +23,9 @@ public class AppConnection {
             Class.forName("org.postgresql.Driver");
             this.conn = DriverManager.getConnection(dbUrl);
             this.stmt = this.conn.createStatement();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException e) {
+            throw new AppException(e.getMessage(), "AppConnection.getConnection");
+        } catch(SQLException e){
             throw new AppException(e.getMessage(), "AppConnection.getConnection");
         }
     }

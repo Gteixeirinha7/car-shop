@@ -170,7 +170,7 @@ public class AppUtils {
 	public static void sleep(int miliseconds){
 		try{
 			Thread.sleep(miliseconds);
-		}catch(InterruptedException | IllegalArgumentException e) { }
+		}catch(InterruptedException e) { }catch(IllegalArgumentException e){}
 	}
 
 

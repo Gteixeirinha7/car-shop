@@ -86,7 +86,7 @@ public class ServletModel extends APIHandler {
 
             this.executeSQL("UPDATE salesforce.Car_Model__c " + 
                     " SET Name = '"+ this.escape(inputData.get("Name").toString()) + "'," + 
-                    " Car_Brand__C = '"+ rsBrand.getString("sfid") + "',"
+                    " Car_Brand__C = '"+ rsBrand.getString("sfid") + "'"
                     + " WHERE externalid__c = '" + sfid + "'");
             returnData.put("ExternalId", sfid);
 

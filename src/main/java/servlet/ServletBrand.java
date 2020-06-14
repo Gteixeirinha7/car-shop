@@ -68,7 +68,7 @@ public class ServletBrand extends APIHandler {
             sfid = inputData.get("ExternalId").toString();
 
             this.executeSQL("UPDATE salesforce.Car_Brand__c " + 
-                    " SET Name = '"+ this.escape(inputData.get("Name").toString()) + "'," + 
+                    " SET Name = '"+ this.escape(inputData.get("Name").toString()) + "'" + 
                     " WHERE externalid__c = '" + sfid + "'");
 
         } else {

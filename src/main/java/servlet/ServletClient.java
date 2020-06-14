@@ -103,8 +103,8 @@ public class ServletClient extends APIHandler {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
             }
 
-            if (AppUtils.toCEP(this.escape(inputData.get("CEP").toString())) == null) {
-                throw new AppException("CEP Field Not Valid", "APIClient.executePOST");
+            if (AppUtils.toCEP(this.escape(inputData.get("PostalCode").toString())) == null) {
+                throw new AppException("PostalCode Field Not Valid", "APIClient.executePOST");
             }
             
             if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
@@ -158,8 +158,8 @@ public class ServletClient extends APIHandler {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
             }
 
-            if (AppUtils.toCEP(this.escape(inputData.get("CEP").toString())) == null) {
-                throw new AppException("CEP Field Not Valid", "APIClient.executePOST");
+            if (AppUtils.toCEP(this.escape(inputData.get("PostalCode").toString())) == null) {
+                throw new AppException("PostalCode Field Not Valid", "APIClient.executePOST");
             }
             
             if (inputData.get("Type__c").toString() == "Pessoa Fisica"){

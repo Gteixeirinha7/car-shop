@@ -43,7 +43,7 @@ public class APIHandler extends HttpServlet {
         try {
             this.conn = new AppConnection();
             JSONObject inputData = AppUtils.parseRequest(request);
-            checkPostParams(inputData);
+            checkDeleteParams(inputData);
             try {
                 response.getWriter().append(executeDELETE(inputData).toString());
             } catch (SQLException e) {
@@ -67,7 +67,7 @@ public class APIHandler extends HttpServlet {
         try {
             this.conn = new AppConnection();
             JSONObject inputData = AppUtils.parseRequest(request);
-            checkPostParams(inputData);
+            checkGetParams(inputData, request);
             try {
                 response.getWriter().append(executeGET(inputData).toString());
             } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class APIHandler extends HttpServlet {
         try{
             this.conn = new AppConnection();
             JSONObject inputData = AppUtils.parseRequest(request);
-            checkPostParams(inputData);
+            checkPostParams(inputData, request);
             try{
                 response.getWriter().append(executePOST(inputData).toString());
             }catch (SQLException e){
@@ -130,10 +130,22 @@ public class APIHandler extends HttpServlet {
         return responseError;
     }
 
-    public void checkPostParams(JSONObject inputData) throws AppException{
-        // if(!inputData.containsKey("key")) {
-        // throw new AppException(400, "Parâmetros Inválidos");
-        // }
+    public void checkGetParams(JSONObject inputData, HttpServletRequest request) throws AppException {
+        if (!inputData.containsKey("ExternalId") && request.getParameter("ExternalId") != null) {
+            inputData.put("ExternalId", request.getParameter("ExternalId").toString());
+        }
+    }
+
+    public void checkDeleteParams(JSONObject inputData , HttpServletRequest request) throws AppException {
+        if (!inputData.containsKey("ExternalId") && request.getParameter("ExternalId") != null) {
+            inputData.put("ExternalId", request.getParameter("ExternalId").toString());
+        }
+    }
+
+    public void checkPostParams(JSONObject inputData) throws AppException {
+        //if (!inputData.containsKey("ExternalId")) {
+        //    throw new AppException(400, "Parâmetros Inválidos");
+        //}
     }
 
     public void getOwnerId() throws AppException, SQLException{

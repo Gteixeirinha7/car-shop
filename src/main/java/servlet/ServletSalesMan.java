@@ -131,9 +131,9 @@ public class ServletSalesMan extends APIHandler {
                     + sfid + "','" + 
                     this.escape(inputData.get("Name").toString()) + "','" + 
                     this.escape(inputData.get("CNH").toString())+ "','" + 
-                    AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) + "'," + 
+                    AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) + "','" + 
+                    this.escape(inputData.get("Email").toString())+ "'," +                     
                     Integer.valueOf(inputData.get("Age").toString()) + ",'" + 
-                    this.escape(inputData.get("Email").toString())+ "','" + 
                     AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'," + 
                     (inputData.containsKey("ExperienceYears") ? " "+ Integer.valueOf(inputData.get("ExperienceYears").toString()) + ", " :" ") +
                     (inputData.containsKey("Experience") ? " '"+ this.escape(inputData.get("Experience").toString()) + "', " :" ") +

@@ -53,7 +53,7 @@ public class ServletClient extends APIHandler {
             sfid = inputData.get("ExternalId").toString();
 
             ResultSet rs = this.executeQuery(
-                    "SELECT sfid, Name, externalid__c,  "
+                    "SELECT sfid, Name, externalid__c, Phone, Email__c, Active__c, Type__c, CPF__c , CNPJ, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet"
                             + " FROM salesforce.Account " + " WHERE externalid__c = '" + sfid
                             + "' AND isdeleted = false");
             if (!rs.next()) {

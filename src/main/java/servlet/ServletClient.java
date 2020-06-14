@@ -102,6 +102,10 @@ public class ServletClient extends APIHandler {
             if (AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) == null) {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
             }
+
+            if (AppUtils.toCEP(this.escape(inputData.get("CEP").toString())) == null) {
+                throw new AppException("CEP Field Not Valid", "APIClient.executePOST");
+            }
             
             if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
                 if(AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) == null) {
@@ -134,7 +138,7 @@ public class ServletClient extends APIHandler {
                     ", Active__c = '"+  AppUtils.boolVal(inputData.get("Active__c").toString()) + "'" +
                     ", BillingCity = '"+ this.escape(inputData.get("City").toString()) + "'" +
                     ", BillingCountry = '"+ this.escape(inputData.get("Country").toString()) + "'" +
-                    ", BillingPostalCode = '"+ this.escape(inputData.get("PostalCode").toString()) + "'" +
+                    ", BillingPostalCode = '"+ AppUtils.toCEP(inputData.get("PostalCode").toString()) + "'" +
                     ", BillingState = '"+ this.escape(inputData.get("State").toString()) + "'" +
                     ", BillingStreet = '"+ this.escape(inputData.get("Street").toString()) + "'" +
                     (inputData.containsKey("CPF") ? ", CPF__c = "+ this.escape(inputData.get("CPF").toString()) + "" :"") +
@@ -152,6 +156,10 @@ public class ServletClient extends APIHandler {
 
             if (AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) == null) {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
+            }
+
+            if (AppUtils.toCEP(this.escape(inputData.get("CEP").toString())) == null) {
+                throw new AppException("CEP Field Not Valid", "APIClient.executePOST");
             }
             
             if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
@@ -191,7 +199,7 @@ public class ServletClient extends APIHandler {
                     AppUtils.boolVal(inputData.get("Active__c").toString()) + ",'" + 
                     this.escape(inputData.get("City").toString()) + "','" + 
                     this.escape(inputData.get("Country").toString()) + "','" + 
-                    this.escape(inputData.get("PostalCode").toString()) + "','" + 
+                    AppUtils.toCEP(inputData.get("PostalCode").toString()) + "','" + 
                     this.escape(inputData.get("State").toString()) + "','" + 
                     this.escape(inputData.get("Street").toString()) + "'," + 
                     (inputData.containsKey("CPF") ? " '"+  AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) + "', " :" ") +

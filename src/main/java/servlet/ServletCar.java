@@ -16,6 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -25,6 +28,39 @@ import org.json.simple.JSONObject;
     )
 public class ServletCar extends APIHandler {
 
+    public List<String> requiredFields;
+
+    public void initParams(){
+        this.requiredFields = new ArrayList<String>(); 
+        requiredFields.add("Name");
+        requiredFields.add("Color__c");
+        requiredFields.add("Exchange__c");
+        requiredFields.add("Fuel__c");
+        requiredFields.add("Price__c");
+        requiredFields.add("Year__c");
+    }
+
+    @Override
+    public JSONObject executeDELETE(JSONObject inputData) throws AppException, SQLException {
+        JSONObject returnData = new JSONObject();
+        String sfid = null;
+        if (inputData.containsKey("ExternalId")) {
+            System.out.println("Delete Call");
+            sfid = inputData.get("ExternalId").toString();
+            ResultSet rs = this.executeQuery("SELECT externalid__c " + 
+                    " FROM salesforce.Car__C"
+                    + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
+            if (!rs.next()) {
+                throw new AppException("Fail to load Car, Car doesn't exists or is allready Deleted", "APICar.executePOST");
+            }
+            this.executeSQL("DELETE FROM salesforce.Car__C" + " WHERE externalid__c = '"+ sfid + "'");
+            returnData.put("statusCode", "200");
+            returnData.put("message", "Success");
+            return returnData;
+        } else {
+            throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
+        }
+    }
     @Override
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         JSONObject returnData = new JSONObject();
@@ -61,6 +97,7 @@ public class ServletCar extends APIHandler {
         JSONObject returnData = new JSONObject();
         String sfid = null;
         if (inputData.containsKey("ExternalId")) {
+            AppUtils.checkRequiredFields(inputData, requiredFields, false);
             System.out.println("Update Call");
             sfid = inputData.get("ExternalId").toString();
             ResultSet rs = this.executeQuery(
@@ -82,6 +119,7 @@ public class ServletCar extends APIHandler {
         
         }else{
             System.out.println("Insert Call");
+            AppUtils.checkRequiredFields(inputData, requiredFields, true);
 
             String externalId = AppUtils.toUUID("Car");
 
@@ -106,5 +144,4 @@ public class ServletCar extends APIHandler {
         returnData.put("statusCode", "200");
         return returnData;
     }
-    
 }

@@ -366,5 +366,24 @@ public class AppUtils {
                 +"-"+hash.substring(12,16)
                 +"-"+hash.substring(16,20)
                 +"-"+hash.substring(20);
-    }
+	}	
+
+	public static void checkRequiredFields(JSONObject inputData, List<String> ReqFields, Boolean InsertCall)
+			throws AppException {
+		List<String> returnField = new ArrayList<String>();
+		for (String field : ReqFields) {
+			if (InsertCall) {
+				if (!inputData.containsKey(field) || inputData.get(field).toString().isEmpty()) {
+					returnField.add(field);
+				}
+			} else {
+				if (inputData.containsKey(field) && inputData.get(field).toString().isEmpty()) {
+					returnField.add(field);
+				}
+			}
+		}
+		if (!returnField.isEmpty()) {
+			throw new AppException("Required Field Missing: " + String.join(", ", returnField), "APICar.RequiredField");
+		}
+	}
 }

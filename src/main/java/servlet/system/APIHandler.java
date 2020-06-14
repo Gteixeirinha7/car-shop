@@ -45,7 +45,7 @@ public class APIHandler extends HttpServlet {
             JSONObject inputData = AppUtils.parseRequest(request);
             checkPostParams(inputData);
             try {
-                response.getWriter().append(executeGET(inputData).toString());
+                response.getWriter().append(executeDELETE(inputData).toString());
             } catch (SQLException e) {
                 throw new AppException(e.getMessage(), "APIHandler.execute");
             }

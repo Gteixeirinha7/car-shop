@@ -142,9 +142,9 @@ public class ServletCar extends APIHandler {
                     " Fuel__c = '" + this.escape(inputData.get("Fuel").toString()) + "'," + 
                     " Price__c = " + Double.valueOf(inputData.get("Price").toString()) + "," + 
                     " UsedCar__c = " + AppUtils.boolVal(inputData.get("UsedCar").toString()) + "," + 
-                    " Year__c = " + Integer.valueOf(inputData.get("Year").toString()) + 
+                    " Year__c = " + Integer.valueOf(inputData.get("Year").toString()) + "," + 
                     " Brand__c = '" + rsBrand.getString("sfid") + "'," + 
-                    " Model__c = '" + rsModel.getString("sfid") + "'," + 
+                    " Model__c = '" + rsModel.getString("sfid") + "' " + 
                      " WHERE externalid__c = '" + sfid + "'");
             returnData.put("ExternalId", sfid);
         

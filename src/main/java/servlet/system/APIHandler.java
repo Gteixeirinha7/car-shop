@@ -220,7 +220,7 @@ public class APIHandler extends HttpServlet {
             returnData.put("message", "Success");
             return returnData;
         } else {
-            throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
+            throw new AppException("Fail to load "+ table+", specify a 'ExternalId'", "APICar.executeGET");
         }
     }
 

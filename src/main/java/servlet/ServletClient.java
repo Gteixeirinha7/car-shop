@@ -66,9 +66,9 @@ public class ServletClient extends APIHandler {
             returnInternalData.put("Phone", rs.getString("Phone"));
             returnInternalData.put("Email", rs.getString("Email__c"));
             returnInternalData.put("Active", rs.getBoolean("Active__c"));
-            if(rs.getString("Type__c") == "Pessoa Física"){
+            if(rs.getString("Type__c") == "Pessoa Fisica"){
                 returnInternalData.put("CPF", rs.getString("CPF__c"));
-            }else if(rs.getString("Type__c") == "Pessoa Jurídica"){
+            }else if(rs.getString("Type__c") == "Pessoa Juridica"){
                 returnInternalData.put("CPF", rs.getString("CNPJ"));
             }
             returnInternalData.put("City", rs.getString("BillingCity"));
@@ -103,7 +103,7 @@ public class ServletClient extends APIHandler {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Física"){
+            if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
                 if(AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) == null) {
                     throw new AppException("CPF Field Not Valid", "APIClient.executePOST");
                 }
@@ -111,11 +111,11 @@ public class ServletClient extends APIHandler {
                     throw new AppException("CPF Field Not Specified", "APIClient.executePOST");
                 }
                 if (inputData.containsKey("CNPJ")) {
-                    throw new AppException("CNPJ Field Not Valid, because type is 'Pessoa Física'", "APIClient.executePOST");
+                    throw new AppException("CNPJ Field Not Valid, because type is 'Pessoa Fisica'", "APIClient.executePOST");
                 }
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Jurídica"){
+            if (inputData.get("Type__c").toString() == "Pessoa Juridica"){
                 if(AppUtils.toCNPJ(this.escape(inputData.get("CNPJ").toString())) == null) {
                     throw new AppException("CNPJ Field Not Valid", "APIClient.executePOST");
                 }
@@ -123,7 +123,7 @@ public class ServletClient extends APIHandler {
                     throw new AppException("CNPJ Field Not Specified", "APIClient.executePOST");
                 }
                 if (inputData.containsKey("CPF")) {
-                    throw new AppException("CPF Field Not Valid, because type is 'Pessoa Jurídica'", "APIClient.executePOST");
+                    throw new AppException("CPF Field Not Valid, because type is 'Pessoa Juridica'", "APIClient.executePOST");
                 }
             }
             this.executeSQL("UPDATE salesforce.Account " + 
@@ -154,7 +154,7 @@ public class ServletClient extends APIHandler {
                 throw new AppException("Phone Field Not Valid", "APIClient.executePOST");
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Física"){
+            if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
                 if(AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) == null) {
                     throw new AppException("CPF Field Not Valid", "APIClient.executePOST");
                 }
@@ -162,11 +162,11 @@ public class ServletClient extends APIHandler {
                     throw new AppException("CPF Field Not Specified", "APIClient.executePOST");
                 }
                 if (inputData.containsKey("CNPJ")) {
-                    throw new AppException("CNPJ Field Not Valid, because type is 'Pessoa Física'", "APIClient.executePOST");
+                    throw new AppException("CNPJ Field Not Valid, because type is 'Pessoa Fisica'", "APIClient.executePOST");
                 }
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Jurídica"){
+            if (inputData.get("Type__c").toString() == "Pessoa Juridica"){
                 if(AppUtils.toCNPJ(this.escape(inputData.get("CNPJ").toString())) == null) {
                     throw new AppException("CNPJ Field Not Valid", "APIClient.executePOST");
                 }
@@ -174,7 +174,7 @@ public class ServletClient extends APIHandler {
                     throw new AppException("CNPJ Field Not Specified", "APIClient.executePOST");
                 }
                 if (inputData.containsKey("CPF")) {
-                    throw new AppException("CPF Field Not Valid, because type is 'Pessoa Jurídica'", "APIClient.executePOST");
+                    throw new AppException("CPF Field Not Valid, because type is 'Pessoa Juridica'", "APIClient.executePOST");
                 }
             }
 

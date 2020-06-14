@@ -71,9 +71,14 @@ public class ServletCar extends APIHandler {
         if (inputData.containsKey("ExternalId")) {
             System.out.println("Read Call");
             sfid = inputData.get("ExternalId").toString();
-            ResultSet rs = this.executeQuery("SELECT sfid, externalid__c, Armored__c, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, Name " + 
-                    " FROM salesforce.Car__C"
-                    + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
+            
+            ResultSet rs = this.executeQuery("SELECT C.sfid, C.externalid__c, C.Armored__c, C.Color__c, C.Exchange__c, C.Fuel__c, C.Price__c, C.UsedCar__c, C.Year__c, C.Name " +
+                    " , B.Name AS BrandName, B.ExternalId__c AS BrandExternal"+ 
+                    " , M.Name AS ModelName, M.ExternalId__c AS ModelExternal "+ 
+                    " FROM salesforce.Car__C C"+
+                    " LEFT JOIN salesforce.Brand__c B ON B.sfid = C.Brand__c"+
+                    " LEFT JOIN salesforce.Model__c M ON M.sfid = C.Model__c"+
+                    " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
             if (!rs.next()) {
                 throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
             }
@@ -87,6 +92,26 @@ public class ServletCar extends APIHandler {
             returnInternalData.put("UsedCar", rs.getBoolean("UsedCar__c"));
             returnInternalData.put("Year", rs.getInt("Year__c"));
             returnInternalData.put("Name", rs.getString("Name"));
+            try{
+                if(rs.findColumn("ModelName") > 0 && !rs.getString("ModelName").isEmpty()){
+                    JSONObject AdditionalData = new JSONObject();
+                    AdditionalData.put("Name", rs.getString("ModelName"));
+                    AdditionalData.put("ExternalId", rs.getString("ModelExternal"));
+                    returnInternalData.put("ModelData", AdditionalData);
+                }
+            }catch(SQLException e){
+
+            }
+            try {
+                if (rs.findColumn("BrandName") > 0 && !rs.getString("BrandName").isEmpty()) {
+                    JSONObject AdditionalData = new JSONObject();
+                    AdditionalData.put("Name", rs.getString("BrandName"));
+                    AdditionalData.put("ExternalId", rs.getString("BrandExternal"));
+                    returnInternalData.put("BrandData", AdditionalData);
+                }
+            } catch (SQLException e) {
+
+            }
         }else{
             throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
         }

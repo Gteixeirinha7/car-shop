@@ -29,9 +29,9 @@ public class ServletCar extends APIHandler {
     public JSONObject executePOST(JSONObject inputData) throws AppException, SQLException {
         JSONObject returnData = new JSONObject();
         String sfid = null;
-        if (inputData.containsKey("externalId")) {
+        if (inputData.containsKey("ExternalId")) {
             System.out.println("Update Call");
-            sfid = inputData.get("externalId").toString();
+            sfid = inputData.get("ExternalId").toString();
             ResultSet rs = this.executeQuery(
                     "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE externalid__c = " + sfid + " AND isdeleted = false");
             if (!rs.next()) {

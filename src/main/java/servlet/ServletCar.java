@@ -67,8 +67,8 @@ public class ServletCar extends APIHandler {
                     
             ResultSet rs = this.executeQuery(
                     "SELECT sfid FROM salesforce.Car__C WHERE externalid__c = '" + externalId + "' AND isdeleted = false");
-
-            sfid = Long.valueOf(rs.getString("sfid"));
+            if(rs.next())
+                sfid = Long.valueOf(rs.getString("sfid"));
         }
         JSONObject returnData = new JSONObject();
         returnData.put("statusCode", "200");

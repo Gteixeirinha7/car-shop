@@ -38,6 +38,7 @@ public class ServletCar extends APIHandler {
             }
             this.executeSQL("UPDATE salesforce.Car__c " +
                     " SET Armored__c = " + AppUtils.boolVal(inputData.get("Armored").toString()) + ", " + 
+                    " Name = '" + this.escape(inputData.get("Name").toString()) + "'," + 
                     " Color__c = '" + this.escape(inputData.get("Color").toString()) + "'," + 
                     " Exchange__c = '" + this.escape(inputData.get("Exchange").toString()) + "'," + 
                     " Fuel__c = '" + this.escape(inputData.get("Fuel").toString()) + "'," + 
@@ -52,9 +53,10 @@ public class ServletCar extends APIHandler {
             String externalId = AppUtils.toUUID(Long.valueOf("Car"));
 
             this.executeSQL("INSERT INTO salesforce.Car__c"
-                    + " (externalid__c, Armored__c, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
+                    + " (externalid__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
                     " VALUES (" + externalId + "'," + 
                     AppUtils.boolVal(inputData.get("Armored").toString()) + ",'" + 
+                    this.escape(inputData.get("Name").toString()) + "','" + 
                     this.escape(inputData.get("Color").toString()) + "','" + 
                     this.escape(inputData.get("Exchange").toString()) + "','" + 
                     this.escape(inputData.get("Fuel").toString()) + "'," + 

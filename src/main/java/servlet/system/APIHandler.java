@@ -193,7 +193,7 @@ public class APIHandler extends HttpServlet {
 
     public ResultSet getLookupVal(String SfId, String table) throws AppException, SQLException {
         ResultSet rs = this.executeQuery("SELECT sfid, externalid__c" + " FROM salesforce."+ table
-                + " WHERE externalid__c = '" + SfId + "' AND isdeleted = false");
+                + " WHERE name = '" + SfId + "' AND isdeleted = false");
         if (!rs.next()) {
             throw new AppException("Fail to load "+ table+", "+ table+" doesn't exists", "APICar.executeLookup");
         }

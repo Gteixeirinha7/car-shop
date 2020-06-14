@@ -93,7 +93,7 @@ public class ServletCar extends APIHandler {
             returnInternalData.put("Year", rs.getInt("Year__c"));
             returnInternalData.put("Name", rs.getString("Name"));
             try{
-                if(rs.findColumn("ModelName") > 0 && !rs.getString("ModelName").isEmpty()){
+                if(rs.findColumn("ModelName") > 0 && rs.getString("ModelName") != null && !rs.getString("ModelName").isEmpty()){
                     JSONObject AdditionalData = new JSONObject();
                     AdditionalData.put("Name", rs.getString("ModelName"));
                     AdditionalData.put("ExternalId", rs.getString("ModelExternal"));
@@ -103,7 +103,7 @@ public class ServletCar extends APIHandler {
 
             }
             try {
-                if (rs.findColumn("BrandName") > 0 && !rs.getString("BrandName").isEmpty()) {
+                if (rs.findColumn("BrandName") > 0 && rs.getString("ModelName") != null && !rs.getString("BrandName").isEmpty()) {
                     JSONObject AdditionalData = new JSONObject();
                     AdditionalData.put("Name", rs.getString("BrandName"));
                     AdditionalData.put("ExternalId", rs.getString("BrandExternal"));

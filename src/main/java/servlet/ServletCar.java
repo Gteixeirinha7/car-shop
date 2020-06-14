@@ -128,11 +128,10 @@ public class ServletCar extends APIHandler {
             AppUtils.checkRequiredFields(inputData, requiredFields);
             System.out.println("Update Call");
             sfid = inputData.get("ExternalId").toString();
-            ResultSet rs = this.executeQuery(
-                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
-            }
+
+            ResultSet rsBrand = this.getLookupVal(inputData.get("BrandName").toString(), "Car_Brand__C");
+            ResultSet rsModel = this.getLookupVal(inputData.get("ModelName").toString(), "Car_Model__C");
+
             this.executeSQL("UPDATE salesforce.Car__c " +
                     " SET Armored__c = " + AppUtils.boolVal(inputData.get("Armored").toString()) + ", " + 
                     " Name = '" + this.escape(inputData.get("Name").toString()) + "'," + 
@@ -142,8 +141,10 @@ public class ServletCar extends APIHandler {
                     " Price__c = " + Double.valueOf(inputData.get("Price").toString()) + "," + 
                     " UsedCar__c = " + AppUtils.boolVal(inputData.get("UsedCar").toString()) + "," + 
                     " Year__c = " + Integer.valueOf(inputData.get("Year").toString()) + 
-                     " WHERE externalid__c = '" + sfid.toString() + "'");
-            returnData.put("ExternalId", rs.getString("externalid__c"));
+                    " Brand__c = '" + rsBrand.getString("sfid") + "'," + 
+                    " Model__c = '" + rsModel.getString("sfid") + "'," + 
+                     " WHERE externalid__c = '" + sfid + "'");
+            returnData.put("ExternalId", sfid);
         
         }else{
             System.out.println("Insert Call");
@@ -151,11 +152,16 @@ public class ServletCar extends APIHandler {
 
             String externalId = AppUtils.toUUID("Car");
 
+            ResultSet rsBrand = this.getLookupVal(inputData.get("BrandName").toString(), "Car_Brand__C");
+            ResultSet rsModel = this.getLookupVal(inputData.get("ModelName").toString(), "Car_Model__C");
+
             this.executeSQL("INSERT INTO salesforce.Car__c"
-                    + " (externalid__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
+                    + " (externalid__c, Car_Brand__c, Car_Model__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
                     " VALUES ('" + externalId + "'," + 
                     AppUtils.boolVal(inputData.get("Armored").toString()) + ",'" + 
                     this.escape(inputData.get("Name").toString()) + "','" + 
+                    rsBrand.getString("sfid") + "','" + 
+                    rsModel.getString("sfid") + "','" + 
                     this.escape(inputData.get("Color").toString()) + "','" + 
                     this.escape(inputData.get("Exchange").toString()) + "','" + 
                     this.escape(inputData.get("Fuel").toString()) + "'," + 
@@ -163,9 +169,6 @@ public class ServletCar extends APIHandler {
                     AppUtils.boolVal(inputData.get("UsedCar").toString()) + "," + 
                     Double.valueOf(inputData.get("Year").toString()) + "," + 
                     "false)");
-                    
-            ResultSet rs = this.executeQuery(
-                    "SELECT sfid FROM salesforce.Car__C WHERE externalid__c = '" + externalId + "' AND isdeleted = false");
                     
             returnData.put("ExternalId", externalId);
         }

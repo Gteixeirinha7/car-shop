@@ -158,7 +158,7 @@ public class ServletCar extends APIHandler {
             ResultSet rsModel = this.getLookupVal(inputData.get("ModelName").toString(), "Car_Model__C");
 
             this.executeSQL("INSERT INTO salesforce.Car__c"
-                    + " (externalid__c, Car_Brand__c, Car_Model__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
+                    + " (externalid__c, Brand__c, Model__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
                     " VALUES ('" + externalId + "'," + 
                     AppUtils.boolVal(inputData.get("Armored").toString()) + ",'" + 
                     this.escape(inputData.get("Name").toString()) + "','" + 

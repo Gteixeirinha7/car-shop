@@ -44,13 +44,13 @@ public class ServletBrand extends APIHandler {
             ResultSet rs = this.executeQuery("SELECT sfid, Name, externalid__c " + " FROM salesforce.Car_Brand__c " + 
                     " WHERE externalid__c = '"+ sfid + "' AND isdeleted = false");
             if (!rs.next()) {
-                throw new AppException("Fail to load Car Brand, Car Brand doesn't exists", "APICarBrand.executePOST");
+                throw new AppException("Fail to load Car Brand, Car Brand doesn't exists", "APICarBrand.executeGET");
             }
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
         } else {
-            throw new AppException("Fail to load Model, specify a 'ExternalId'", "APICar.executeGET");
+            throw new AppException("Fail to load Model, specify a 'ExternalId'", "APICarBrand.executeGET");
         }
         returnData.put("statusCode", "200");
         returnData.put("objectData", returnInternalData);

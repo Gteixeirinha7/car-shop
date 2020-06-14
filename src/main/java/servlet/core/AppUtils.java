@@ -300,7 +300,7 @@ public class AppUtils {
     }
 
     public static boolean isEmailValid(String email) { 
-	return email.matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})$");
+		return email.matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})$");
     }
 
     public static String toPhoneNumber(String source) {

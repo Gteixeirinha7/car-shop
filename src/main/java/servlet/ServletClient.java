@@ -107,7 +107,7 @@ public class ServletClient extends APIHandler {
                 throw new AppException("PostalCode Field Not Valid", "APIClient.executePOST");
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Fisica"){
+            if (inputData.get("Type").toString() == "Pessoa Fisica"){
                 if(AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) == null) {
                     throw new AppException("CPF Field Not Valid", "APIClient.executePOST");
                 }
@@ -119,7 +119,7 @@ public class ServletClient extends APIHandler {
                 }
             }
             
-            if (inputData.get("Type__c").toString() == "Pessoa Juridica"){
+            if (inputData.get("Type").toString() == "Pessoa Juridica"){
                 if(AppUtils.toCNPJ(this.escape(inputData.get("CNPJ").toString())) == null) {
                     throw new AppException("CNPJ Field Not Valid", "APIClient.executePOST");
                 }
@@ -135,7 +135,7 @@ public class ServletClient extends APIHandler {
                     ", Type__c = '"+ this.escape(inputData.get("Type").toString()) + "'" +
                     ", Phone = '"+  AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +
                     ", Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
-                    ", Active__c = '"+  AppUtils.boolVal(inputData.get("Active__c").toString()) + "'" +
+                    ", Active__c = '"+  AppUtils.boolVal(inputData.get("Active").toString()) + "'" +
                     ", BillingCity = '"+ this.escape(inputData.get("City").toString()) + "'" +
                     ", BillingCountry = '"+ this.escape(inputData.get("Country").toString()) + "'" +
                     ", BillingPostalCode = '"+ AppUtils.toCEP(inputData.get("PostalCode").toString()) + "'" +
@@ -196,7 +196,7 @@ public class ServletClient extends APIHandler {
                     this.escape(inputData.get("Type").toString())+ "','" + 
                     AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "','" + 
                     this.escape(inputData.get("Email").toString()) + "'," + 
-                    AppUtils.boolVal(inputData.get("Active__c").toString()) + ",'" + 
+                    AppUtils.boolVal(inputData.get("Active").toString()) + ",'" + 
                     this.escape(inputData.get("City").toString()) + "','" + 
                     this.escape(inputData.get("Country").toString()) + "','" + 
                     AppUtils.toCEP(inputData.get("PostalCode").toString()) + "','" + 

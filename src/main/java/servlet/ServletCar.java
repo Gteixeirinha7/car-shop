@@ -103,7 +103,7 @@ public class ServletCar extends APIHandler {
 
             }
             try {
-                if (rs.findColumn("BrandName") > 0 && rs.getString("ModelName") != null && !rs.getString("BrandName").isEmpty()) {
+                if (rs.findColumn("BrandName") > 0 && rs.getString("BrandName") != null && !rs.getString("BrandName").isEmpty()) {
                     JSONObject AdditionalData = new JSONObject();
                     AdditionalData.put("Name", rs.getString("BrandName"));
                     AdditionalData.put("ExternalId", rs.getString("BrandExternal"));

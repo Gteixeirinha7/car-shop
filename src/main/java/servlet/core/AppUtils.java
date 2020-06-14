@@ -351,6 +351,14 @@ public class AppUtils {
         return null;
     }
 
+	public static String toUUID(String id) {
+        String hash = AppUtils.md5(id+String.valueOf(AppUtils.rand())+String.valueOf(AppUtils.time()));
+        return hash.substring(0,8)
+                +"-"+hash.substring(8,12)
+                +"-"+hash.substring(12,16)
+                +"-"+hash.substring(16,20)
+                +"-"+hash.substring(20);
+	}
     public static String toUUID(long id) {
         String hash = AppUtils.md5(String.valueOf(id)+String.valueOf(AppUtils.rand())+String.valueOf(AppUtils.time()));
         return hash.substring(0,8)

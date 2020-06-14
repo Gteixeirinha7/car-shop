@@ -50,7 +50,7 @@ public class ServletCar extends APIHandler {
         }else{
             System.out.println("Insert Call");
 
-            String externalId = AppUtils.toUUID(Long.valueOf("Car"));
+            String externalId = AppUtils.toUUID("Car");
 
             this.executeSQL("INSERT INTO salesforce.Car__c"
                     + " (externalid__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 

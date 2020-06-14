@@ -49,13 +49,11 @@ public class ServletCar extends APIHandler {
             returnInternalData.put("UsedCar", rs.getBoolean("UsedCar__c"));
             returnInternalData.put("Year", rs.getInt("Year__c"));
             returnInternalData.put("Name", rs.getString("Name"));
-            returnData.put("statusCode", "200");
-            returnData.put("objectData", returnInternalData);
-            return returnData;
         }else{
             throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
         }
         returnData.put("statusCode", "200");
+        returnData.put("objectData", returnInternalData);
         return returnData;
     }
     @Override

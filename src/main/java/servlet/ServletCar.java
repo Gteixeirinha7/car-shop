@@ -1,25 +1,15 @@
 package servlet;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import servlet.system.APIHandler;
 import servlet.core.AppException;
 import servlet.core.AppUtils;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 @WebServlet(
@@ -45,24 +35,7 @@ public class ServletCar extends APIHandler {
     @Override
     public JSONObject executeDELETE(JSONObject inputData) throws AppException, SQLException {
         initParams();
-        JSONObject returnData = new JSONObject();
-        String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
-            System.out.println("Delete Call");
-            sfid = inputData.get("ExternalId").toString();
-            ResultSet rs = this.executeQuery("SELECT externalid__c " + 
-                    " FROM salesforce.Car__C"
-                    + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Car, Car doesn't exists or is allready Deleted", "APICar.executePOST");
-            }
-            this.executeSQL("DELETE FROM salesforce.Car__C" + " WHERE externalid__c = '"+ sfid + "'");
-            returnData.put("statusCode", "200");
-            returnData.put("message", "Success");
-            return returnData;
-        } else {
-            throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
-        }
+        return deleteSingleRecord(inputData, "Car__c");
     }
     @Override
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
@@ -82,7 +55,7 @@ public class ServletCar extends APIHandler {
                     " LEFT JOIN salesforce.Car_Model__c M ON M.sfid = C.Model__c"+
                     " WHERE C.externalid__c = '" + sfid + "' AND C.isdeleted = false");
             if (!rs.next()) {
-                throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
+                throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executeGET");
             }
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
@@ -127,8 +100,8 @@ public class ServletCar extends APIHandler {
         JSONObject returnData = new JSONObject();
         String sfid = null;
         if (inputData.containsKey("ExternalId")) {
-            AppUtils.checkRequiredFields(inputData, requiredFields);
             System.out.println("Update Call");
+            AppUtils.checkRequiredFields(inputData, requiredFields);
             sfid = inputData.get("ExternalId").toString();
 
             ResultSet rsBrand = this.getLookupVal(inputData.get("BrandName").toString(), "Car_Brand__C");

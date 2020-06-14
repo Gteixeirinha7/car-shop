@@ -191,6 +191,25 @@ public class APIHandler extends HttpServlet {
         return this.conn.getInsertStatement(tableName, fields);
     }
 
+    public JSONObject deleteSingleRecord(JSONObject inputData, String table) throws AppException, SQLException {
+        System.out.println("Delete Call");
+        if (inputData.containsKey("ExternalId")) {
+            JSONObject returnData = new JSONObject();
+            String sfid = inputData.get("ExternalId").toString();
+            ResultSet rs = this.executeQuery("SELECT externalid__c " + " FROM salesforce."+ table
+                    + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
+            if (!rs.next()) {
+                throw new AppException("Fail to load "+table+", "+table+" doesn't exists or is allready Deleted", "APICar.executeDELETE");
+            }
+            this.executeSQL("DELETE FROM salesforce." + table+ " WHERE externalid__c = '" + sfid + "'");
+            returnData.put("statusCode", "200");
+            returnData.put("message", "Success");
+            return returnData;
+        } else {
+            throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
+        }
+    }
+
     public ResultSet getLookupVal(String SfId, String table) throws AppException, SQLException {
         ResultSet rs = this.executeQuery("SELECT sfid, externalid__c" + " FROM salesforce."+ table
                 + " WHERE name = '" + SfId + "' AND isdeleted = false");

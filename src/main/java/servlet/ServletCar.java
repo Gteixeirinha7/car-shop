@@ -100,7 +100,7 @@ public class ServletCar extends APIHandler {
         JSONObject returnData = new JSONObject();
         String sfid = null;
         if (inputData.containsKey("ExternalId")) {
-            AppUtils.checkRequiredFields(inputData, requiredFields, false);
+            AppUtils.checkRequiredFields(inputData, requiredFields);
             System.out.println("Update Call");
             sfid = inputData.get("ExternalId").toString();
             ResultSet rs = this.executeQuery(
@@ -122,7 +122,7 @@ public class ServletCar extends APIHandler {
         
         }else{
             System.out.println("Insert Call");
-            AppUtils.checkRequiredFields(inputData, requiredFields, true);
+            AppUtils.checkRequiredFields(inputData, requiredFields);
 
             String externalId = AppUtils.toUUID("Car");
 

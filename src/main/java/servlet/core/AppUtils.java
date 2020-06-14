@@ -368,18 +368,12 @@ public class AppUtils {
                 +"-"+hash.substring(20);
 	}	
 
-	public static void checkRequiredFields(JSONObject inputData, List<String> ReqFields, Boolean InsertCall)
+	public static void checkRequiredFields(JSONObject inputData, List<String> ReqFields)
 			throws AppException {
 		List<String> returnField = new ArrayList<String>();
 		for (String field : ReqFields) {
-			if (InsertCall) {
-				if (!inputData.containsKey(field) || inputData.get(field).toString().isEmpty()) {
-					returnField.add(field);
-				}
-			} else {
-				if (inputData.containsKey(field) && inputData.get(field).toString().isEmpty()) {
-					returnField.add(field);
-				}
+			if (!inputData.containsKey(field) || inputData.get(field).toString().isEmpty()) {
+				returnField.add(field);
 			}
 		}
 		if (!returnField.isEmpty()) {

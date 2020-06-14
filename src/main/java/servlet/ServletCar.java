@@ -33,11 +33,11 @@ public class ServletCar extends APIHandler {
     public void initParams(){
         this.requiredFields = new ArrayList<String>(); 
         requiredFields.add("Name");
-        requiredFields.add("Color__c");
-        requiredFields.add("Exchange__c");
-        requiredFields.add("Fuel__c");
-        requiredFields.add("Price__c");
-        requiredFields.add("Year__c");
+        requiredFields.add("Color");
+        requiredFields.add("Exchange");
+        requiredFields.add("Fuel");
+        requiredFields.add("Price");
+        requiredFields.add("Year");
     }
 
     @Override

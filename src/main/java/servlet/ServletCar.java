@@ -33,7 +33,7 @@ public class ServletCar extends APIHandler {
             System.out.println("Update Call");
             sfid = inputData.get("ExternalId").toString();
             ResultSet rs = this.executeQuery(
-                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE externalid__c = " + sfid + " AND isdeleted = false");
+                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
             if (!rs.next()) {
                 throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
             }

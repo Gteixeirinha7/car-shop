@@ -29,11 +29,11 @@ public class ServletCar extends APIHandler {
     public JSONObject executePOST(JSONObject inputData) throws AppException, SQLException {
         JSONObject returnData = new JSONObject();
         String sfid = null;
-        if (inputData.containsKey("id")) {
+        if (inputData.containsKey("externalId")) {
             System.out.println("Update Call");
-            sfid = inputData.get("id").toString();
+            sfid = inputData.get("externalId").toString();
             ResultSet rs = this.executeQuery(
-                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE sfid = " + sfid + " AND isdeleted = false");
+                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE externalid__c = " + sfid + " AND isdeleted = false");
             if (!rs.next()) {
                 throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
             }

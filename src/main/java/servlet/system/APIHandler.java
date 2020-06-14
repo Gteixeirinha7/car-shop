@@ -42,8 +42,7 @@ public class APIHandler extends HttpServlet {
         setAccessControlHeaders(response);
         try {
             this.conn = new AppConnection();
-            JSONObject inputData = AppUtils.parseRequest(request);
-            checkDeleteParams(inputData);
+            JSONObject inputData = checkDeleteParams(AppUtils.parseRequest(request), request);
             try {
                 response.getWriter().append(executeDELETE(inputData).toString());
             } catch (SQLException e) {
@@ -66,8 +65,7 @@ public class APIHandler extends HttpServlet {
         setAccessControlHeaders(response);
         try {
             this.conn = new AppConnection();
-            JSONObject inputData = AppUtils.parseRequest(request);
-            checkGetParams(inputData, request);
+            JSONObject inputData = checkGetParams(AppUtils.parseRequest(request), request);
             try {
                 response.getWriter().append(executeGET(inputData).toString());
             } catch (SQLException e) {
@@ -92,7 +90,7 @@ public class APIHandler extends HttpServlet {
         try{
             this.conn = new AppConnection();
             JSONObject inputData = AppUtils.parseRequest(request);
-            checkPostParams(inputData, request);
+            checkPostParams(inputData);
             try{
                 response.getWriter().append(executePOST(inputData).toString());
             }catch (SQLException e){
@@ -130,16 +128,20 @@ public class APIHandler extends HttpServlet {
         return responseError;
     }
 
-    public void checkGetParams(JSONObject inputData, HttpServletRequest request) throws AppException {
+    public JSONObject checkGetParams(JSONObject inputData, HttpServletRequest request) throws AppException {
+        JSONObject inputDatareturn = inputData;
         if (!inputData.containsKey("ExternalId") && request.getParameter("ExternalId") != null) {
-            inputData.put("ExternalId", request.getParameter("ExternalId").toString());
+            inputDatareturn.put("ExternalId", request.getParameter("ExternalId").toString());
         }
+        return inputDatareturn;
     }
 
-    public void checkDeleteParams(JSONObject inputData , HttpServletRequest request) throws AppException {
+    public JSONObject checkDeleteParams(JSONObject inputData , HttpServletRequest request) throws AppException {
+        JSONObject inputDatareturn = inputData;
         if (!inputData.containsKey("ExternalId") && request.getParameter("ExternalId") != null) {
-            inputData.put("ExternalId", request.getParameter("ExternalId").toString());
+            inputDatareturn.put("ExternalId", request.getParameter("ExternalId").toString());
         }
+        return inputDatareturn;
     }
 
     public void checkPostParams(JSONObject inputData) throws AppException {

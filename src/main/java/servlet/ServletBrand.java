@@ -50,7 +50,7 @@ public class ServletBrand extends APIHandler {
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
         } else {
-            throw new AppException("Fail to load Model, specify a 'ExternalId'", "APICarBrand.executeGET");
+            throw new AppException("Fail to load Brand, specify a 'ExternalId'", "APICarBrand.executeGET");
         }
         returnData.put("statusCode", "200");
         returnData.put("objectData", returnInternalData);

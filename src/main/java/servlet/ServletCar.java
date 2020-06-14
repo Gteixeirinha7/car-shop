@@ -42,6 +42,7 @@ public class ServletCar extends APIHandler {
 
     @Override
     public JSONObject executeDELETE(JSONObject inputData) throws AppException, SQLException {
+        initParams();
         JSONObject returnData = new JSONObject();
         String sfid = null;
         if (inputData.containsKey("ExternalId")) {
@@ -63,6 +64,7 @@ public class ServletCar extends APIHandler {
     }
     @Override
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
+        initParams();
         JSONObject returnData = new JSONObject();
         JSONObject returnInternalData = new JSONObject();
         String sfid = null;
@@ -94,6 +96,7 @@ public class ServletCar extends APIHandler {
     }
     @Override
     public JSONObject executePOST(JSONObject inputData) throws AppException, SQLException {
+        initParams();
         JSONObject returnData = new JSONObject();
         String sfid = null;
         if (inputData.containsKey("ExternalId")) {

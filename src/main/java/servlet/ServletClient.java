@@ -53,7 +53,7 @@ public class ServletClient extends APIHandler {
             sfid = inputData.get("ExternalId").toString();
 
             ResultSet rs = this.executeQuery(
-                    "SELECT sfid, Name, externalid__c, Phone, Email__c, Active__c, Type__c, CPF__c , CNPJ, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet"
+                    "SELECT sfid, Name, externalid__c, Phone, Email__c, Active__c, Type__c, CPF__c , CNPJ__c, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet"
                             + " FROM salesforce.Account " + " WHERE externalid__c = '" + sfid
                             + "' AND isdeleted = false");
             if (!rs.next()) {
@@ -69,7 +69,7 @@ public class ServletClient extends APIHandler {
             if(rs.getString("Type__c") == "Pessoa Fisica"){
                 returnInternalData.put("CPF", rs.getString("CPF__c"));
             }else if(rs.getString("Type__c") == "Pessoa Juridica"){
-                returnInternalData.put("CPF", rs.getString("CNPJ"));
+                returnInternalData.put("CPF", rs.getString("CNPJ__c"));
             }
             returnInternalData.put("City", rs.getString("BillingCity"));
             returnInternalData.put("Country", rs.getString("BillingCountry"));

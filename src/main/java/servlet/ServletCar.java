@@ -27,12 +27,13 @@ public class ServletCar extends APIHandler {
 
     @Override
     public JSONObject executePOST(JSONObject inputData) throws AppException, SQLException {
-       String sfid = null;
+        JSONObject returnData = new JSONObject();
+        String sfid = null;
         if (inputData.containsKey("id")) {
             System.out.println("Update Call");
             sfid = inputData.get("id").toString();
             ResultSet rs = this.executeQuery(
-                    "SELECT sfid" + " FROM salesforce.Car__C" + " WHERE sfid = " + sfid + " AND isdeleted = false");
+                    "SELECT sfid, externalid__c" + " FROM salesforce.Car__C" + " WHERE sfid = " + sfid + " AND isdeleted = false");
             if (!rs.next()) {
                 throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
             }
@@ -46,6 +47,7 @@ public class ServletCar extends APIHandler {
                     " UsedCar__c = " + AppUtils.boolVal(inputData.get("UsedCar").toString()) + "," + 
                     " Year__c = " + Double.valueOf(inputData.get("Year").toString()) + "," + 
                      " WHERE sfid = '" + sfid.toString() + "'");
+            returnData.put("internalCode", rs.getString("externalid__c"));
         
         }else{
             System.out.println("Insert Call");
@@ -68,14 +70,9 @@ public class ServletCar extends APIHandler {
             ResultSet rs = this.executeQuery(
                     "SELECT sfid FROM salesforce.Car__C WHERE externalid__c = '" + externalId + "' AND isdeleted = false");
                     
-            if (!rs.next()) {
-                throw new AppException("Fail to load data", "CarAPI.execute");
-            }
-            sfid = rs.getString("sfid");
+            returnData.put("internalCode", externalId);
         }
-        JSONObject returnData = new JSONObject();
         returnData.put("statusCode", "200");
-        returnData.put("internalCode", sfid);
         return returnData;
     }
     

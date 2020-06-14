@@ -78,7 +78,7 @@ public class ServletCar extends APIHandler {
                     " FROM salesforce.Car__C C"+
                     " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = C.Brand__c"+
                     " LEFT JOIN salesforce.Car_Model__c M ON M.sfid = C.Model__c"+
-                    " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
+                    " WHERE C.externalid__c = '" + sfid + "' AND isdeleted = false");
             if (!rs.next()) {
                 throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executePOST");
             }

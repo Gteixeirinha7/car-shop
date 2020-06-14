@@ -60,7 +60,7 @@ public class ServletSalesMan extends APIHandler {
             returnInternalData.put("ExperienceYears", rs.getInt("ExperienceYears__c"));
             returnInternalData.put("CNH", rs.getString("CNH__c"));
             returnInternalData.put("Experience", rs.getString("Experience__c"));
-            returnInternalData.put("CPF", rs.getString("CPF__c"));
+            returnInternalData.put("CPF", AppUtils.toCPF(rs.getString("CPF__c")));
             returnInternalData.put("Email", rs.getString("Email__c"));
             returnInternalData.put("Age", rs.getInt("Age__c"));
             returnInternalData.put("Goal", rs.getDouble("Goal__c"));
@@ -97,7 +97,7 @@ public class ServletSalesMan extends APIHandler {
             this.executeSQL("UPDATE salesforce.SalesMan__c " + 
                     " SET Name = '"+ this.escape(inputData.get("Name").toString()) + "'" +
                     ", CNH__c = '"+ this.escape(inputData.get("CNH").toString()) + "'" +
-                    ", CPF__c = '"+ this.escape(inputData.get("CPF").toString()) + "'" +
+                    ", CPF__c = '"+ AppUtils.toCPF(this.escape(inputData.get("CPF").toString())) + "'" +
                     ", Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
                     ", Age__c = '"+ Integer.valueOf(inputData.get("Age").toString()) + "'" +
                     ", Phone__c = '"+ AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +

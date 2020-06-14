@@ -159,9 +159,9 @@ public class ServletCar extends APIHandler {
 
             this.executeSQL("INSERT INTO salesforce.Car__c"
                     + " (externalid__c, Brand__c, Model__c, Armored__c, Name, Color__c, Exchange__c, Fuel__c, Price__c, UsedCar__c, Year__c, isdeleted)" + 
-                    " VALUES ('" + externalId + "'," + 
+                    " VALUES ('" + externalId + "','" + 
                     rsBrand.getString("sfid") + "','" + 
-                    rsModel.getString("sfid") + "','" + 
+                    rsModel.getString("sfid") + "'," + 
                     AppUtils.boolVal(inputData.get("Armored").toString()) + ",'" + 
                     this.escape(inputData.get("Name").toString()) + "','" + 
                     this.escape(inputData.get("Color").toString()) + "','" + 

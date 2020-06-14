@@ -38,6 +38,8 @@ public class ServletCar extends APIHandler {
         requiredFields.add("Fuel");
         requiredFields.add("Price");
         requiredFields.add("Year");
+        requiredFields.add("BrandName");
+        requiredFields.add("ModelName");
     }
 
     @Override

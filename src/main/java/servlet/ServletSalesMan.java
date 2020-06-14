@@ -96,14 +96,14 @@ public class ServletSalesMan extends APIHandler {
 
             this.executeSQL("UPDATE salesforce.SalesMan__c " + 
                     " SET Name = '"+ this.escape(inputData.get("Name").toString()) + "'" +
-                    ", SET CNH__c = '"+ this.escape(inputData.get("CNH").toString()) + "'" +
-                    ", SET CPF__c = '"+ this.escape(inputData.get("CPF").toString()) + "'" +
-                    ", SET Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
-                    ", SET Age__c = '"+ Integer.valueOf(inputData.get("Age").toString()) + "'" +
-                    ", SET Phone__c = '"+ AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +
-                    (inputData.containsKey("ExperienceYears") ? ", SET ExperienceYears__c = "+ Integer.valueOf(inputData.get("ExperienceYears").toString()) + "" :"") +
-                    (inputData.containsKey("Experience") ? ", SET Experience__c = '"+ this.escape(inputData.get("Experience").toString()) + "'" :"") +
-                    (inputData.containsKey("Goal") ? ", SET Goal__c = "+ Double.valueOf(inputData.get("Goal").toString()) + "" :"") +
+                    ", CNH__c = '"+ this.escape(inputData.get("CNH").toString()) + "'" +
+                    ", CPF__c = '"+ this.escape(inputData.get("CPF").toString()) + "'" +
+                    ", Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
+                    ", Age__c = '"+ Integer.valueOf(inputData.get("Age").toString()) + "'" +
+                    ", Phone__c = '"+ AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +
+                    (inputData.containsKey("ExperienceYears") ? ", ExperienceYears__c = "+ Integer.valueOf(inputData.get("ExperienceYears").toString()) + "" :"") +
+                    (inputData.containsKey("Experience") ? ", Experience__c = '"+ this.escape(inputData.get("Experience").toString()) + "'" :"") +
+                    (inputData.containsKey("Goal") ? ", Goal__c = "+ Double.valueOf(inputData.get("Goal").toString()) + "" :"") +
                      " WHERE externalid__c = '" + sfid + "'");
 
         } else {

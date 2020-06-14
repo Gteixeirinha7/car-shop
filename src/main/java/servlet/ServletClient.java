@@ -128,17 +128,17 @@ public class ServletClient extends APIHandler {
             }
             this.executeSQL("UPDATE salesforce.Account " + 
                     " SET  Name = '"+ this.escape(inputData.get("Name").toString()) + "'" +
-                    ", SET Type__c = '"+ this.escape(inputData.get("Type").toString()) + "'" +
-                    ", SET Phone = '"+  AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +
-                    ", SET Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
-                    ", SET Active__c = '"+  AppUtils.boolVal(inputData.get("Active__c").toString()) + "'" +
-                    ", SET BillingCity = '"+ this.escape(inputData.get("City").toString()) + "'" +
-                    ", SET BillingCountry = '"+ this.escape(inputData.get("Country").toString()) + "'" +
-                    ", SET BillingPostalCode = '"+ this.escape(inputData.get("PostalCode").toString()) + "'" +
-                    ", SET BillingState = '"+ this.escape(inputData.get("State").toString()) + "'" +
-                    ", SET BillingStreet = '"+ this.escape(inputData.get("Street").toString()) + "'" +
-                    (inputData.containsKey("CPF") ? ", SET CPF__c = "+ this.escape(inputData.get("CPF").toString()) + "" :"") +
-                    (inputData.containsKey("CNPJ") ? ", SET CNPJ__c = '"+ this.escape(inputData.get("CNPJ").toString()) + "'" :"") +
+                    ", Type__c = '"+ this.escape(inputData.get("Type").toString()) + "'" +
+                    ", Phone = '"+  AppUtils.toPhoneNumber(this.escape(inputData.get("Phone").toString())) + "'" +
+                    ", Email__c = '"+ this.escape(inputData.get("Email").toString()) + "'" +
+                    ", Active__c = '"+  AppUtils.boolVal(inputData.get("Active__c").toString()) + "'" +
+                    ", BillingCity = '"+ this.escape(inputData.get("City").toString()) + "'" +
+                    ", BillingCountry = '"+ this.escape(inputData.get("Country").toString()) + "'" +
+                    ", BillingPostalCode = '"+ this.escape(inputData.get("PostalCode").toString()) + "'" +
+                    ", BillingState = '"+ this.escape(inputData.get("State").toString()) + "'" +
+                    ", BillingStreet = '"+ this.escape(inputData.get("Street").toString()) + "'" +
+                    (inputData.containsKey("CPF") ? ", CPF__c = "+ this.escape(inputData.get("CPF").toString()) + "" :"") +
+                    (inputData.containsKey("CNPJ") ? ", CNPJ__c = '"+ this.escape(inputData.get("CNPJ").toString()) + "'" :"") +
                     " WHERE externalid__c = '" + sfid + "'");
 
         } else {

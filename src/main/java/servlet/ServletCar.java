@@ -27,10 +27,10 @@ public class ServletCar extends APIHandler {
 
     @Override
     public JSONObject executePOST(JSONObject inputData) throws AppException, SQLException {
-       Long sfid = null;
+       String sfid = null;
         if (inputData.containsKey("id")) {
             System.out.println("Update Call");
-            sfid = Long.valueOf(inputData.get("id").toString());
+            sfid = inputData.get("id").toString();
             ResultSet rs = this.executeQuery(
                     "SELECT sfid" + " FROM salesforce.Car__C" + " WHERE sfid = " + sfid + " AND isdeleted = false");
             if (!rs.next()) {
@@ -67,8 +67,11 @@ public class ServletCar extends APIHandler {
                     
             ResultSet rs = this.executeQuery(
                     "SELECT sfid FROM salesforce.Car__C WHERE externalid__c = '" + externalId + "' AND isdeleted = false");
-            if(rs.next())
-                sfid = Long.valueOf(rs.getString("sfid"));
+                    
+            if (!rs.next()) {
+                throw new AppException("Fail to load data", "CarAPI.execute");
+            }
+            sfid = rs.getString("sfid");
         }
         JSONObject returnData = new JSONObject();
         returnData.put("statusCode", "200");

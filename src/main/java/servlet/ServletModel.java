@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
-
+//Tema: Car Shop
+// Gabriel Teixeira 081170023
+// Igor Cruz 081170008
+// Joao Marcos 081170036
 @WebServlet(
         name = "ServletModel", 
         urlPatterns = {"/Model"}

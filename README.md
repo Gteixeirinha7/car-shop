@@ -3,6 +3,11 @@
 
 Projeto construido usando a linguagem JAVA para criar APIs, hospedado na plataforma Heroku, usando o CRM Salesforce como banco de dados.
 
+Tema: Car Shop
+ Gabriel Teixeira 081170023
+ Igor Cruz 081170008
+ Joao Marcos 081170036
+
 ## Application Documentation
 
 Postman Collection

@@ -39,7 +39,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         scope.$evalAsync();
         c.allChecked = false;
     };
-    c.delete = function (table, recordId = null) {
+    c.delete = function (table, ExternalIds) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
             text: "Essa ação não poderá ser desfeita",
@@ -57,12 +57,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     }
                 }
                 var body = {};
-                var bodyRequest = c.getCurrentData(table, recordId);
-                if (bodyRequest) {
-                    body['ExternalId'] = bodyRequest['ExternalId'];
-                } else {
-                    body['ExternalId'] = 'null';
-                }
+                    body['ExternalId'] = ExternalIds;
 
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
                     function successCallback(response) {
@@ -189,12 +184,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </button>
             <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" style="left: -60px;" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation" onclick="window.edit('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="window.edit('${table}', '${item.ExternalId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation" onclick="window.delete('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="window.delete('${table}', '${item.ExternalId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -285,8 +280,8 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     window.edit = function (table, Id) {
         c.edit();
     };
-    window.delete = function (table, Id) {
-        c.delete(table, Id);
+    window.delete = function (table, ExternalIds) {
+        c.delete(table, ExternalIds);
     };
 }]);
 app.config(['$qProvider', function ($qProvider) {

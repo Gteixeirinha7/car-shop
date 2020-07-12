@@ -6,7 +6,7 @@
     <script src="/scripts/angular.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/style/styles/salesforce-lightning-design-system.min.css">
     <link rel="stylesheet" type="text/css" href="/style/styles/SweetalertCss.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.2.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.2.5" charset="UTF-8"></script>
     <script src="/scripts/index.js" type="text/javascript"></script>
     <script type="text/javascript">
         window.config = {

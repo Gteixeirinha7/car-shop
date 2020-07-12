@@ -47,7 +47,8 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim'
+            confirmButtonText: 'Sim',
+            html: true
         }).then((result) => {
             if (result.value) {
                 var req = {

@@ -303,6 +303,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'Registro Atualizado/Inserido com sucesso!',
             'success'
         );
+        c.callPageGet(table);
 
     }
     window.markAll = function(){

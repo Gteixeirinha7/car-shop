@@ -19,7 +19,7 @@
         }
     </script>
 </head>
-<body  ng-app="app" ng-controller="c as c" ng-class="{noscroll: c.loading}">
+<body  ng-app="app" ng-controller="ItemController as c" ng-class="{noscroll: c.loading}">
 <div class="lds-css ng-scope loading" ng-if="c.loading == true" ng-model="c.loading">
     <div class="lds-rolling">
         <div></div>

@@ -34,7 +34,8 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.finallyHandler();
     };
     c.finallyHandler = function () {
-        scope.$apply();
+        scope.$applyAsync();
+        scope.$evalAsync();
     };
     c.delete = function (table, recordId = null) {
         Swal.fire({

@@ -21,7 +21,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         scope.finallyHandler();
     };
     scope.handleGET = function (response, table) {
-        scope.$apply(function () {
             scope.removeSelection();
             $('#tag' + table).addClass('slds-is-active');
             window.config[table]['data'] = response.data.objectData;
@@ -30,7 +29,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
             scope.hideAllElements();
             scope.finallyHandler();
-        }, { response, table});
+            scope.$apply();
     };
     scope.finallyHandler = function(){
     };

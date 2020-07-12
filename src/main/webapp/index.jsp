@@ -28,7 +28,14 @@
             'Brand': {
                 'fields': ['Name'],
                 'fieldsLabel': ['Nome'],
-                'data': {}
+                'data': {},
+                'fieldsMetaData': [
+                    {
+                        'Type' : 'Text',
+                        'Label' : 'Nome',
+                        'Field': 'Name'
+                    }
+                ]
             },
             'Client': {
                 'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode' , 'City', 'Street', 'State', 'Country'],

@@ -5,6 +5,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     var c = this;
     c.loading = true;
     c.allChecked = false;
+    c.currentTable = '';
 
     c.callPageGet = function (table, recordId = null) {
         var req = {
@@ -17,7 +18,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         if (recordId != null){
             body['ExternalId'] = recordId;
         }
-
+        c.currentTable = table;
         $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
     };
     c.errorHandleGET = function (response) {
@@ -72,47 +73,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'success'
         );
         c.callPageGet(table);
-    };
-    c.edit = function (table, recordId = null) {
-        Swal.fire({
-            title: 'Tem certeaza que deseja apagar?',
-            text: "Essa ação não poderá ser desfeita",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim'
-        }).then((result) => {
-            if (result.value) {
-                var req = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-                var body = getBodyModal(table);
-
-                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
-                    function successCallback(response) {
-                        c.handleEdit(response, table)
-                    },
-                    function errorCallback(response) {
-                        c.errorHandleEdit(response)
-                    }
-                );
-            }
-        });
-    };
-    c.errorHandleEdit = function (response) {
-    };
-    c.handleEdit = function (response) {
-        c.loading = true;
-
-        Swal.fire(
-            'Editado!',
-            'Registro editado com sucesso',
-            'success'
-        );
     };
     c.addTableSingleHader = function (tableLabel){
         return `
@@ -262,6 +222,94 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     };
     c.getCurrentData = function(table, id){
         return window.config[table].data.filter(item => item.SalesforceId == id)[0];
+    };
+    c.handleEdit = function(table, externalId){
+        Swal.fire({
+            title: 'Digite as informações do registro',
+            html: c.getBody(table),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim'
+        }).then((result) => {
+            if (result.value) {
+                var req = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                var objectData = c.checkFields(table, externalId);
+                if (objectData == null) {
+                    Swal.fire(
+                        'Erro!',
+                        'Informe todos os dados...',
+                        'warning'
+                    );
+
+                } else if (!externalId){
+                    objectData['ExternalId'] = externalId;
+                }
+                $http.post('https://car-shop-ftt.herokuapp.com/' + table, objectData, req).then(
+                    function successCallback(response) {
+                        c.handleSucessEdit(response, table);
+                    },
+                    function errorCallback(response) {
+                        c.errorHandleSucessEdit(response)
+                    }
+                );
+            }
+        });
+    };
+    c.checkFields = function (table){
+        var objectData = {}
+        var elements = $('div[id^="form-element-"]');
+        for (var i = 0; i < elements.length; i++) {
+            if(elements[i].type == 'text'){
+                if (elements[i].value){
+                    objectData[elements[i].id.replace('-' + table, '').replce('form-element-', '')] = elements[i].value;
+                }else{
+                    return null;
+                }
+            }
+        }
+
+        return objectData;
+    };
+    c.getBody = function (table){
+        var fieldMetaData = window.config[table]['fieldsMetaData'];
+        var fieldData = '';
+        fieldMetaData.forEach(function(item){
+            if (item.Type == 'Text')
+                fieldData += c.createSingleIput(table, item.Label, item.Field);
+        }, {fieldData});
+        var html  = `
+        <div class="slds-form slds-grid">
+            ${fieldData}
+        </div>
+        `;
+
+        return html;
+    }
+    c.createSingleIput = function (table, label, field){
+        return `
+        <div class="slds-size--1-of-2">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-${field}-${table}">${label}</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" />
+                </div>
+            </div>
+        </div>`;
+    }
+    c.handleSucessEdit = function (response, table) {
+        Swal.fire(
+            'Sucesso!',
+            'Registro Atualizado/Inserido com sucesso!',
+            'success'
+        );
+
     }
     window.markAll = function(){
         c.markAll();
@@ -270,7 +318,10 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.showHide(Ids);
     };
     window.edit = function (table, Id) {
-        c.edit();
+        c.handleEdit(table, Id);
+    };
+    window.newData = function (table) {
+        c.handleEdit(c.currentTable);
     };
     window.delete = function (table, ExternalIds) {
         c.delete(table, ExternalIds);

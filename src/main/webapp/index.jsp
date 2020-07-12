@@ -11,10 +11,13 @@
         window.config = {
             'SalesMan' : {
                 'fields' :     ['Name', 'CPF', 'Age'],
-                'fieldsLabel': ['Nome' ,'CPF', 'Idade']
+                'fieldsLabel': ['Nome' ,'CPF', 'Idade'],
+                'data' : {}
             },
             'Car': {
-                'fields': ''
+                'fields': ['Name', 'Fuel', 'Year'],
+                'fieldsLabel': ['Nome', 'Gasolina', 'Ano'],
+                'data': {}
             },
         }
     </script>

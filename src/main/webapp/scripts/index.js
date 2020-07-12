@@ -25,6 +25,8 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     this.handleGET = function (response, table) {
         this.loading = true;
 
+        window.config[table] = response.data.objectData;
+
         $('#contentData').html(this.addTable(response.data.objectData, table))
 
         $scope.$apply(function () {
@@ -122,15 +124,15 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
           <td class="slds-text-align_right" role="gridcell">
             <div class="slds-checkbox">
               <input type="checkbox" name="options" id="checkbox-${item.SalesforceId}" value="checkbox-${item.SalesforceId}" tabindex="0" aria-labelledby="check-button-label-01 column-group-header" />
-              <label class="slds-checkbox__label" for="checkbox-01" id="check-button-label-01">
+              <label class="slds-checkbox__label" for="checkbox-${item.SalesforceId}" id="checkbox-${item.SalesforceId}-label-01">
                 <span class="slds-checkbox_faux"></span>
                 <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
               </label>
             </div>
           </td>
           ${dataTable}
-          <td role="gridcell">
-            <button ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+          <td role="gridcell"  ng-click="c.showHide('actions-${item.SalesforceId}')" >
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>

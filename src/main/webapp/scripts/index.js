@@ -5,6 +5,10 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     c.loading = true;
 
     this.callPageGet = function (table, recordId = null) {
+        $scope.$apply(function () {
+            var c = $scope.c;
+            c.loading = true;
+        });
         this.removeSelection();
         $('#tag' + table).addClass('slds-is-active');
         var req = {
@@ -21,19 +25,22 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
     };
     this.errorHandleGET = function (response) {
+        this.finallyHandler();
     };
     this.handleGET = function (response, table) {
-        this.loading = true;
-
         window.config[table]['data'] = response.data.objectData;
 
         $('#contentData').html(this.addTable(response.data.objectData, table));
 
         this.hideAllElements();
-
-        this.loading = false;
-        $scope.$apply();
+        this.finallyHandler();
     };
+    this.finallyHandler = function(){
+        $scope.$apply(function () {
+            var c = $scope.c;
+            c.loading = true;
+        });
+    }
 
     this.delete = function (table, recordId = null) {
         Swal.fire({

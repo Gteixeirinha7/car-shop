@@ -23,7 +23,19 @@
             'Model': {
                 'fields': ['Name', 'BrandData.Name'],
                 'fieldsLabel': ['Nome', 'Marca'],
-                'data': {}
+                'data': {},
+                'fieldsMetaData': [
+                    {
+                        'Type': 'Text',
+                        'Label': 'Nome',
+                        'Field': 'Name'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Marca',
+                        'Field': 'BrandName'
+                    }
+                ]
             },
             'Brand': {
                 'fields': ['Name'],

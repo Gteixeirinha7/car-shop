@@ -18,7 +18,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
     }
     c.handlerCovid = function(reponse){
-        $('#Covid19Id').html(`<p>Casos de Covid: ${reponse.data.cases}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a></p>Mortes de Covid: ${reponse.data.deaths}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a>`);
+        $('#Covid19Id').html(`<p>Casos de Covid(SP): ${reponse.data.cases}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a></p>Mortes de Covid(SP): ${reponse.data.deaths}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a>`);
     }
 
     c.callPageGet = function (table, recordId = null) {

@@ -1,5 +1,6 @@
 <html  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"   ng-app="app">
 <head>
+    <title>Car Shop FTT</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/angular.min.js" type="text/javascript"></script>
@@ -37,7 +38,7 @@
         }
     </script>
 </head>
-<body class="app {{containerClass}}" ng-controller="ItemController as c" ng-init="init()">
+<body class="app {{containerClass}}" ng-controller="ItemController as c" ng-init="c.init()">
 <div class="lds-css ng-scope loading" ng-if="c.loading == true" ng-model="c.loading">
     <div class="lds-rolling">
         <div></div>

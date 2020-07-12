@@ -45,8 +45,8 @@ public class ServletModel extends APIHandler {
                     "SELECT M.sfid, M.Name, M.Car_Brand__c, M.externalid__c "    
                             + " , B.Name AS BrandName, B.ExternalId__c AS BrandExternal " + " FROM salesforce.Car_Model__C M"
                             + " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = M.Car_Brand__c"
-                            + " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
-                            + " isdeleted = false");
+                            + " WHERE " +(inputData.containsKey("ExternalId") ? (" M.externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
+                            + " M.isdeleted = false");
             
         while (rs.next()) {
             JSONObject returnInternalData = new JSONObject();

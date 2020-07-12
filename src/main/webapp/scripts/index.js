@@ -331,11 +331,20 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         </div>`;
     }
     c.handleSucessEdit = function (response, table) {
-        Swal.fire(
-            'Sucesso!',
-            'Registro Atualizado/Inserido com sucesso!',
-            'success'
-        );
+        if (response.data.error == 999) {
+            Swal.fire(
+                'Error!',
+                response.data.description,
+                'warning'
+            );
+
+        }else{
+            Swal.fire(
+                'Sucesso!',
+                'Registro Atualizado/Inserido com sucesso!',
+                'success'
+            );
+        }
         c.callPageGet(table);
 
     }

@@ -247,7 +247,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         'Erro!',
                         'Informe todos os dados...',
                         'warning'
-                    );
+                    ).then((result) => { c.handleEdit(table, externalId);});
 
                 } else if (!externalId){
                     c.objectData['ExternalId'] = externalId;
@@ -267,7 +267,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.checkFields = function (field, event){
         if (c.objectData == null)
             c.objectData = {};
-        c.objectData[field] = event.value;
+        c.objectData[field] = event.target.value;
     };
     c.getBody = function (table){
         var fieldMetaData = window.config[table]['fieldsMetaData'];

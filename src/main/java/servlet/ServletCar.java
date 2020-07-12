@@ -44,9 +44,8 @@ public class ServletCar extends APIHandler {
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         initParams();
         JSONObject returnData = new JSONObject();
-        JSONObject returnInternalData = new JSONObject();
+        List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
         String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
             System.out.println("Read Call");
             sfid = inputData.get("ExternalId").toString();
             
@@ -56,10 +55,9 @@ public class ServletCar extends APIHandler {
                     " FROM salesforce.Car__C C"+
                     " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = C.Brand__c"+
                     " LEFT JOIN salesforce.Car_Model__c M ON M.sfid = C.Model__c"+
-                    " WHERE C.externalid__c = '" + sfid + "' AND C.isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Car, Car doesn't exists", "APICar.executeGET");
-            }
+                    " WHERE " +(inputData.containsKey("ExternalId") ? (" C.externalid__c = '" + sfid +" AND " ): "") + " C.isdeleted = false");
+        while(rs.next()) {
+            JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
             returnInternalData.put("Armored", rs.getBoolean("Armored__c"));
@@ -90,11 +88,10 @@ public class ServletCar extends APIHandler {
             } catch (SQLException e) {
 
             }
-        }else{
-            throw new AppException("Fail to load Car, specify a 'ExternalId'", "APICar.executeGET");
+            returnInternalDataList.add(returnInternalData);
         }
         returnData.put("statusCode", "200");
-        returnData.put("objectData", returnInternalData);
+        returnData.put("objectData", returnInternalDataList);
         return returnData;
     }
     @Override

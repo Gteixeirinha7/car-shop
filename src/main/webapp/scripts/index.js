@@ -11,7 +11,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
     c.externalAPI = function(){
         $http.get('https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/sp').then(function successCallback(response) { 
-            c.handlerCovid(response, table) 
+            c.handlerCovid(response) 
         }, function errorCallback(response) { 
             c.handlerCovid(response) 
         });

@@ -57,7 +57,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     }
                 }
                 var body = {};
-                var bodyRequest = c.getCurrentData();
+                var bodyRequest = c.getCurrentData(table, recordId);
                 if (bodyRequest) {
                     body['ExternalId'] = bodyRequest['Ext   ernalId'];
                 } else {

@@ -61,8 +61,8 @@
             </li>
         </ul>
     </nav>
+</div>
     <div id="contentData" class="slds-context-bar">
     </div>
-</div>
 </body>
 </html>

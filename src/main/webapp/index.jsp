@@ -15,10 +15,25 @@
                 'data' : {}
             },
             'Car': {
-                'fields': ['Name', 'Fuel', 'Year'],
-                'fieldsLabel': ['Nome', 'Gasolina', 'Ano'],
+                'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name'],
+                'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'],
                 'data': {}
             },
+            'Model': {
+                'fields': ['Name', 'BrandData.Name'],
+                'fieldsLabel': ['Nome', 'Marca'],
+                'data': {}
+            },
+            'Brand': {
+                'fields': ['Name'],
+                'fieldsLabel': ['Nome'],
+                'data': {}
+            },
+            'Client': {
+                'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode'],
+                'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP'],
+                'data': {}
+            }
         }
     </script>
 </head>

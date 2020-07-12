@@ -31,10 +31,8 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
 
         this.hideAllElements();
 
-        $scope.$apply(function () {
-            var c = $scope.c;
-            c.loading = false;
-        });
+        this.loading = false;
+        scope.$apply();
     };
 
     this.delete = function (table, recordId = null) {
@@ -109,7 +107,14 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             </th>
         `;
     };
-    this.returnSingleData = function (item, prop) {
+    this.returnSingleData = function (itemData, prop) {
+        var info = '';
+        var currItem = JSON.parse(JSON.stringify(itemData));
+        var path = prop.split('.');
+        path.forEach(function(item){
+            currItem = currItem[item];
+        }, { info, prop, currItem, itemData});
+
         return `
             <th scope="row">
               <div class="slds-truncate" title="${item[prop]}">${item[prop]}</div>

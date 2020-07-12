@@ -27,7 +27,9 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
 
         window.config[table]['data'] = response.data.objectData;
 
-        $('#contentData').html(this.addTable(response.data.objectData, table))
+        $('#contentData').html(this.addTable(response.data.objectData, table));
+
+        this.hideAllElements();
 
         $scope.$apply(function () {
             var c = $scope.c;
@@ -131,8 +133,8 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             </div>
           </td>
           ${dataTable}
-          <td role="gridcell"  ng-click="c.showHide('actions-${item.SalesforceId}')" >
-            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+          <td role="gridcell">
+            <button  ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
@@ -193,6 +195,12 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
               ${tableData}  
           </tbody>
         </table>`;
+    }
+    this.hideAllElements = function () {
+        var elements = $('div[id^="actions-"]');
+        for(var i =0; i<elements.length; i++){
+            $('#'+elements[i].id).hide();
+        }
     }
     this.removeSelection = function () {
         $('#tagSalesMan').removeClass('slds-is-active');

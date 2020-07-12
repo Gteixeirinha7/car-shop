@@ -108,16 +108,15 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         `;
     };
     this.returnSingleData = function (itemData, prop) {
-        var info = '';
         var currItem = JSON.parse(JSON.stringify(itemData));
         var path = prop.split('.');
         path.forEach(function(item){
             currItem = currItem[item];
-        }, { info, prop, currItem, itemData});
+        }, { prop, currItem, itemData});
 
         return `
             <th scope="row">
-              <div class="slds-truncate" title="${item[prop]}">${item[prop]}</div>
+              <div class="slds-truncate" title="${currItem}">${currItem}</div>
             </th>
         `;
     }

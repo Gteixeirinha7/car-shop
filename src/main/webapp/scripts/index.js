@@ -1,6 +1,6 @@
 var app = angular.module('app', []);
 
-app.controller('ItemController', ['scope', '$http', function (scope, $http) {
+app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     scope.loading = true;
 
     scope.callPageGet = function (table, recordId = null) {

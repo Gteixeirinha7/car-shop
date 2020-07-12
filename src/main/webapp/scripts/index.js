@@ -7,6 +7,8 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.allChecked = false;
     c.currentTable = '';
 
+    c.objectData = null;
+
     c.callPageGet = function (table, recordId = null) {
         var req = {
             method: 'GET',
@@ -101,7 +103,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         var currItem = JSON.parse(JSON.stringify(itemData));
         var path = prop.split('.');
         path.forEach(function(item){
-                currItem = currItem[item] ? currItem[item] : 'Vazio';
+            currItem = currItem[item] ? currItem[item] : 'Vazio';
         }, { prop, currItem, itemData});
 
         return `
@@ -225,7 +227,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     };
     c.handleEdit = function(table, externalId){
         Swal.fire({
-            title: 'Digite as informações do registro',
+            title: 'Digite os dados do registro',
             html: c.getBody(table),
             icon: 'warning',
             showCancelButton: true,
@@ -240,8 +242,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         'Content-Type': 'application/json'
                     }
                 }
-                var objectData = c.checkFields(table, externalId);
-                if (objectData == null) {
+                if (c.objectData == null) {
                     Swal.fire(
                         'Erro!',
                         'Informe todos os dados...',
@@ -249,9 +250,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     );
 
                 } else if (!externalId){
-                    objectData['ExternalId'] = externalId;
+                    c.objectData['ExternalId'] = externalId;
                 }
-                $http.post('https://car-shop-ftt.herokuapp.com/' + table, objectData, req).then(
+                $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
                     function successCallback(response) {
                         c.handleSucessEdit(response, table);
                     },
@@ -259,23 +260,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         c.errorHandleSucessEdit(response)
                     }
                 );
+                c.objectData = null;
             }
         });
     };
-    c.checkFields = function (table){
-        var objectData = {}
-        var elements = $('div[id^="form-element-"]');
-        for (var i = 0; i < elements.length; i++) {
-            if(elements[i].type == 'text'){
-                if (elements[i].value){
-                    objectData[elements[i].id.replace('-' + table, '').replce('form-element-', '')] = elements[i].value;
-                }else{
-                    return null;
-                }
-            }
-        }
-
-        return objectData;
+    c.checkFields = function (field, event){
+        c.objectData[field] = event.value;
     };
     c.getBody = function (table){
         var fieldMetaData = window.config[table]['fieldsMetaData'];
@@ -298,7 +288,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="form-element-${field}-${table}">${label}</label>
                 <div class="slds-form-element__control">
-                    <input type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" />
+                    <input onchange="window.checkFields('${field}', event)" type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" />
                 </div>
             </div>
         </div>`;
@@ -320,11 +310,14 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     window.edit = function (table, Id) {
         c.handleEdit(table, Id);
     };
-    window.newData = function (table) {
+    window.newData = function () {
         c.handleEdit(c.currentTable);
     };
     window.delete = function (table, ExternalIds) {
         c.delete(table, ExternalIds);
+    };
+    window.checkFields = function (field, event) {
+        c.checkFields(field, event);
     };
 }]);
 app.config(['$qProvider', function ($qProvider) {

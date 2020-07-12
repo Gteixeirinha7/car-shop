@@ -18,7 +18,39 @@
             'Car': {
                 'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name', 'Armored', 'UsedCar', 'Color', 'Exchange'],
                 'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'         , 'Blindado?', 'Carro usado?', 'Cor', 'Cambio'],
-                'data': {}
+                'data': {},
+                'fieldsMetaData': [
+                    {
+                        'Type': 'Text',
+                        'Label': 'Gasolina',
+                        'Field': 'Fuel'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Ano',
+                        'Field': 'Year'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Modelo',
+                        'Field': 'ModelName'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Marca',
+                        'Field': 'BrandName'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Cor',
+                        'Field': 'Color'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Cambio',
+                        'Field': 'Exchange'
+                    }
+                ]
             },
             'Model': {
                 'fields': ['Name', 'BrandData.Name'],

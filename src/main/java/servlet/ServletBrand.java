@@ -43,7 +43,7 @@ public class ServletBrand extends APIHandler {
 
             ResultSet rs = this.executeQuery("SELECT sfid, Name, externalid__c " + " FROM salesforce.Car_Brand__c " + 
                     " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
-                            + " isdeleted = false");
+                            + " isdeleted = false AND externalid__c != null");
         while (rs.next()) {
             JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));

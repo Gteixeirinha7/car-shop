@@ -184,7 +184,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
               </svg>
               <span class="slds-assistive-text">More actions for Acme - 1,200 Widgets</span>
             </button>
-            <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" >
+            <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" style="left: -60px;" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
                 <li class="slds-dropdown__item" role="presentation" onclick="window.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">

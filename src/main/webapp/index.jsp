@@ -89,7 +89,7 @@
             </li>
         </ul>
     </nav>
-    <button ng-click="c.createRecord()" class="slds-button slds-button_brand" style="margin: 2px 10px;">Novo</button>
+    <button ng-click="c.newData()" class="slds-button slds-button_brand" style="margin: 2px 10px;">Novo</button>
 </div>
     <div id="contentData" style="margin: 5px;">
     </div>

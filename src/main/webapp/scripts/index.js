@@ -306,6 +306,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.callPageGet(table);
 
     }
+    c.newData = function () {
+        c.handleEdit(c.currentTable);
+    };
     window.markAll = function(){
         c.markAll();
     };
@@ -316,7 +319,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.handleEdit(table, Id);
     };
     window.newData = function () {
-        c.handleEdit(c.currentTable);
+        c.newData();
     };
     window.delete = function (table, ExternalIds) {
         c.delete(table, ExternalIds);

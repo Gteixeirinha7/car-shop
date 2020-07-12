@@ -1,15 +1,14 @@
 var app = angular.module('app', []);
 
-app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
-    var c = this;
-    c.loading = true;
+app.controller('ItemController', ['scope', '$http', function (scope, $http) {
+    scope.loading = true;
 
-    this.callPageGet = function (table, recordId = null) {
-        $scope.$apply(function () {
-            var c = $scope.c;
-            c.loading = true;
+    scope.callPageGet = function (table, recordId = null) {
+        scope.$apply(function () {
+            var c = scope.c;
+            scope.loading = true;
         });
-        this.removeSelection();
+        scope.removeSelection();
         $('#tag' + table).addClass('slds-is-active');
         var req = {
             method: 'GET',
@@ -22,27 +21,27 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             body['ExternalId'] = recordId;
         }
 
-        $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
+        $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { scope.handleGET(response, table) }, function errorCallback(response) { scope.errorHandleGET(response) });
     };
-    this.errorHandleGET = function (response) {
-        this.finallyHandler();
+    scope.errorHandleGET = function (response) {
+        scope.finallyHandler();
     };
-    this.handleGET = function (response, table) {
+    scope.handleGET = function (response, table) {
         window.config[table]['data'] = response.data.objectData;
 
-        $('#contentData').html(this.addTable(response.data.objectData, table));
+        $('#contentData').html(scope.addTable(response.data.objectData, table));
 
-        this.hideAllElements();
-        this.finallyHandler();
+        scope.hideAllElements();
+        scope.finallyHandler();
     };
-    this.finallyHandler = function(){
-        $scope.$apply(function () {
-            var c = $scope.c;
-            c.loading = true;
+    scope.finallyHandler = function(){
+        scope.$apply(function () {
+            var c = scope.c;
+            scope.loading = false;
         });
     }
 
-    this.delete = function (table, recordId = null) {
+    scope.delete = function (table, recordId = null) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
             text: "Essa ação não poderá ser desfeita",
@@ -66,19 +65,19 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
 
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
                     function successCallback(response) {
-                        c.handleDelete(response, table)
+                        scope.handleDelete(response, table)
                     },
                     function errorCallback(response) {
-                        c.errorHandleDelete(response)
+                        scope.errorHandleDelete(response)
                     }
                 );
             }
         });
     }
-    this.errorHandleDelete = function (response) {
+    scope.errorHandleDelete = function (response) {
     };
-    this.handleDelete = function (response) {
-        this.loading = true;
+    scope.handleDelete = function (response) {
+        scope.loading = true;
 
         Swal.fire(
             'Deletado!',
@@ -86,12 +85,12 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             'success'
         )
 
-        $scope.$apply(function () {
-            var c = $scope.c;
-            c.loading = false;
+        scope.$apply(function () {
+            var c = scope.c;
+            scope.loading = false;
         });
     };
-    this.addTableSingleHader = function (tableLabel){
+    scope.addTableSingleHader = function (tableLabel){
         return `
             <th aria-label="${tableLabel}" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
               <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0">
@@ -114,7 +113,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             </th>
         `;
     };
-    this.returnSingleData = function (itemData, prop) {
+    scope.returnSingleData = function (itemData, prop) {
         var currItem = JSON.parse(JSON.stringify(itemData));
         var path = prop.split('.');
         path.forEach(function(item){
@@ -127,10 +126,10 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             </th>
         `;
     }
-    this.addDataItem = function (table, item) {
+    scope.addDataItem = function (table, item) {
         var dataTable = '';
         window.config[table]['fields'].forEach(function (prop) {
-            dataTable += c.returnSingleData(item, prop);
+            dataTable += scope.returnSingleData(item, prop);
         }, { dataTable });
         return `
         <tr aria-selected="false" class="slds-hint-parent">
@@ -145,7 +144,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
           </td>
           ${dataTable}
           <td role="gridcell">
-            <button  ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+            <button  ng-click="scope.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
@@ -153,12 +152,12 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             </button>
             <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation" ng-click="c.edit('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" ng-click="scope.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation" ng-click="c.delete('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" ng-click="scope.delete('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -169,15 +168,15 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         </tr>
         `;
     };
-    this.addTable = function(data, table){
+    scope.addTable = function(data, table){
         var tableHeader = '';
         window.config[table]['fieldsLabel'].forEach(function (item) {
-            tableHeader += c.addTableSingleHader(item);
+            tableHeader += scope.addTableSingleHader(item);
         }, { tableHeader });
 
         var tableData = '';
         data.forEach(function (item) {
-            tableData += c.addDataItem(table, item);
+            tableData += scope.addDataItem(table, item);
         }, { tableData, table });
 
         return `
@@ -188,7 +187,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
                 <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                 <div class="slds-th__action slds-th__action_form">
                   <div class="slds-checkbox">
-                    <input ng-click="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                    <input ng-click="scope.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
                     <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
                       <span class="slds-checkbox_faux"></span>
                       <span class="slds-form-element__label slds-assistive-text">Selecionar Todos</span>
@@ -207,36 +206,36 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
           </tbody>
         </table>`;
     }
-    this.markAll = function (event) {
+    scope.markAll = function (event) {
         var elements = $('div[id^="checkbox-"]');
         for (var i = 0; i < elements.length; i++) {
             elements[i].checked = event.checked;
         }
     }
-    this.hideAllElements = function () {
+    scope.hideAllElements = function () {
         var elements = $('div[id^="actions-"]');
         for(var i =0; i<elements.length; i++){
             $('#'+elements[i].id).hide();
         }
     }
-    this.removeSelection = function () {
+    scope.removeSelection = function () {
         $('#tagSalesMan').removeClass('slds-is-active');
         $('#tagCar').removeClass('slds-is-active');
         $('#tagModel').removeClass('slds-is-active');
         $('#tagBrand').removeClass('slds-is-active');
         $('#tagClient').removeClass('slds-is-active');
     };
-    this.showHide = function(Ids){
+    scope.showHide = function(Ids){
         if ($('#' + Ids).css('display') == 'none'){
             $('#' + Ids).show();
         } else {
             $('#' + Ids).hide();
         }
     }
-    this.initPage = function () {
-        c.callPageGet('SalesMan');
+    scope.initPage = function () {
+        scope.callPageGet('SalesMan');
     }
     window.onload = function () {
-        c.initPage();
+        scope.initPage();
     }
 }]);

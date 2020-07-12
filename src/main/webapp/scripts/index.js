@@ -29,7 +29,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.removeSelection();
         $('#tag' + table).addClass('slds-is-active');
 
-        $('#contentData').html(c.addTable(response.data.objectData, table));
+        $('#contentData').html(c.addTable(window.config[table]['data'], table));
 
         c.hideAllElements();
         c.finallyHandler();

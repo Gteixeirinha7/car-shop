@@ -31,6 +31,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         scope.finallyHandler();
     };
     scope.finallyHandler = function(){
+        $scope.apply();
     }
 
     scope.delete = function (table, recordId = null) {

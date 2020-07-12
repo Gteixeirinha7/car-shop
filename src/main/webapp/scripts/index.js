@@ -33,7 +33,8 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.hideAllElements();
         c.finallyHandler();
     };
-    c.finallyHandler = function(){
+    c.finallyHandler = function () {
+        scope.$apply();
     };
     c.delete = function (table, recordId = null) {
         Swal.fire({
@@ -223,7 +224,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     }
     c.init = function () {
         c.callPageGet('SalesMan');
-        scope.$apply();
     }
 }]);
 })();

@@ -11,13 +11,13 @@
     <script type="text/javascript">
         window.config = {
             'SalesMan' : {
-                'fields' :     ['Name', 'CPF', 'Age'],
-                'fieldsLabel': ['Nome' ,'CPF', 'Idade'],
+                'fields' :     ['Name', 'CPF', 'Age',   'Experience' , 'Goal', 'Email', 'Phone', 'CNH'],
+                'fieldsLabel': ['Nome' ,'CPF', 'Idade', 'Experiencia', 'Meta', 'Email', 'Telefone', 'CNH'],
                 'data' : {}
             },
             'Car': {
-                'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name'],
-                'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'],
+                'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name', 'Armored', 'UsedCar', 'Color', 'Exchange'],
+                'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'         , 'Blindado?', 'Carro usado?', 'Cor', 'Câmbio'],
                 'data': {}
             },
             'Model': {
@@ -31,8 +31,8 @@
                 'data': {}
             },
             'Client': {
-                'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode'],
-                'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP'],
+                'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode' , 'City', 'Street', 'State', 'Country'],
+                'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP', 'Cidade', 'Rua', 'Estado', 'País'],
                 'data': {}
             }
         }
@@ -82,6 +82,7 @@
             </li>
         </ul>
     </nav>
+    <button ng-click="c.createRecord()" class="slds-button slds-button_brand" style="margin: 2px 10px;">Novo</button>
 </div>
     <div id="contentData" style="margin: 5px;">
     </div>

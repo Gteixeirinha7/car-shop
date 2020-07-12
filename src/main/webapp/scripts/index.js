@@ -302,7 +302,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             var fieldDatas = ''
             if (objectData && objectData[item.Field]){
                 fieldDatas = objectData[item.Field];
-            } else if (objectData[item.Field.split('Name')[0] + 'Data']) {
+            } else if (objectData && objectData[item.Field.split('Name')[0] + 'Data']) {
                 fieldDatas = objectData[item.Field.split('Name')[0]+'Data']['Name'];                
             }
             if (item.Type == 'Text')

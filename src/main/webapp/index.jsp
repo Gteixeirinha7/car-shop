@@ -1,7 +1,7 @@
-<html  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="app">
+<html  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <script src="/scripts/jquery-3.5.1.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/angular.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/style/styles/salesforce-lightning-design-system.min.css">
     <script src="/scripts/index.js" type="text/javascript"></script>
@@ -17,7 +17,7 @@
         }
     </script>
 </head>
-<body  ng-controller="ItemController as c" ng-class="{noscroll: c.loading}">
+<body  ng-app="app" ng-controller="ItemController as c" ng-class="{noscroll: c.loading}">
 <div class="lds-css ng-scope loading" ng-if="c.loading == true" ng-model="c.loading">
     <div class="lds-rolling">
         <div></div>

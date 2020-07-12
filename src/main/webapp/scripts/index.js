@@ -135,7 +135,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           </td>
           ${dataTable}
           <td role="gridcell">
-            <button  ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+            <button onclick="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
@@ -143,12 +143,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </button>
             <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation" ng-click="c.edit('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="c.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation" ng-click="c.delete('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="c.delete('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -178,7 +178,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                 <div class="slds-th__action slds-th__action_form">
                   <div class="slds-checkbox">
-                    <input ng-click="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                    <inputonclick="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
                     <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
                       <span class="slds-checkbox_faux"></span>
                       <span class="slds-form-element__label slds-assistive-text">Selecionar Todos</span>

@@ -56,27 +56,27 @@
     <nav class="slds-context-bar__secondary" role="navigation">
         <ul class="slds-grid">
             <li id="tagSalesMan" class="slds-context-bar__item slds-is-active">
-                <a ng-click="c.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
+                <a onclick="c.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
                     <span class="slds-truncate" title="SalesMan">SalesMan</span>
                 </a>
             </li>
             <li id="tagCar" class="slds-context-bar__item">
-                <a ng-click="c.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
+                <a onclick="c.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
                     <span class="slds-truncate" title="Car">Car</span>
                 </a>
             </li>
             <li id="tagModel" class="slds-context-bar__item">
-                <a ng-click="c.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
+                <a onclick="c.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
                     <span class="slds-truncate" title="Model">Model</span>
                 </a>
             </li>
             <li id="tagBrand" class="slds-context-bar__item">
-                <a ng-click="c.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
+                <a onclick="c.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
                     <span class="slds-truncate" title="Brand">Brand</span>
                 </a>
             </li>
             <li id="tagClient" class="slds-context-bar__item">
-                <a ng-click="c.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
+                <a onclick="c.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
                     <span class="slds-truncate" title="Client">Client</span>
                 </a>
             </li>

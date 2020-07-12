@@ -54,9 +54,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         }).then((result) => {
             if (result.value) {
                 var options = {
-                    headers: new HttpHeaders({
-                        'Content-Type': 'application/json'
-                    }),
                     body: {
                         ExternalId: ExternalIds
                     }

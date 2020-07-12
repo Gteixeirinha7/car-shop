@@ -4,7 +4,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     var c = this;
     c.loading = true;
 
-    this.callPage = function (table, recordId = null) {
+    this.callPageGet = function (table, recordId = null) {
         this.removeSelection();
         $('#tag' + table).addClass();
         var req = {
@@ -18,7 +18,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             body['ExternalId'] = recordId;
         }
 
-        $http.post('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
+        $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
     };
     this.errorHandleGET = function (response) {
     };
@@ -136,7 +136,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         $('#tagClient').removeClass('slds-is-active');
     };
     this.initPage = function () {
-        c.callPage('SalesMan');
+        c.callPageGet('SalesMan');
     }
     window.onload = function () {
         c.initPage();

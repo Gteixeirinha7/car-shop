@@ -10,7 +10,11 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.objectData = null;
 
     c.externalAPI = function(){
-        $http.get('https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/sp').then(function successCallback(response) { c.handlerCovid(response, table) }, function errorCallback(response) { c.handlerCovid(response) });
+        $http.get('https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/sp').then(function successCallback(response) { 
+            c.handlerCovid(response, table) 
+        }, function errorCallback(response) { 
+            c.handlerCovid(response) 
+        });
 
     }
     c.handlerCovid = function(reponse){

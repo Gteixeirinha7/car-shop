@@ -332,7 +332,7 @@ public class AppUtils {
     }
 
     public static String toCPF(String source) {
-        source = source.replaceAll("[^0-9]", "");
+        source = (source == null ? "" : source.replaceAll("[^0-9]", ""));
         int size = source.length();
         if (size == 11){
             return source.substring(0,3)

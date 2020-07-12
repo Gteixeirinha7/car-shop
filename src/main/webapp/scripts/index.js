@@ -6,7 +6,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
 
     this.callPageGet = function (table, recordId = null) {
         this.removeSelection();
-        $('#tag' + table).addClass();
+        $('#tag' + table).addClass('slds-is-active');
         var req = {
             method: 'GET',
             headers: {
@@ -65,7 +65,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     this.addDataItem = function (table, item) {
         var dataTable = '';
         window.config[table]['fields'].forEach(function (prop) {
-            dataTable += this.returnSingleData(item, prop);
+            dataTable += c.returnSingleData(item, prop);
         }, { dataTable });
         return `
         <tr aria-selected="false" class="slds-hint-parent">
@@ -93,12 +93,12 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     this.addTable = function(data, table){
         var tableHeader = '';
         window.config[table]['fieldsLabel'].forEach(function (item) {
-            tableHeader += this.addTableSingleHader(item);
+            tableHeader += c.addTableSingleHader(item);
         }, { tableHeader });
 
         var tableData = '';
         data.forEach(function (item) {
-            tableData += this.addDataItem(table, item);
+            tableData += c.addDataItem(table, item);
         }, { tableData, table });
 
         return `

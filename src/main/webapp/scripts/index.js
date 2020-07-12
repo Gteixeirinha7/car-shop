@@ -41,7 +41,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
                   <span class="slds-truncate" title="${tableLabel}">${tableLabel}</span>
                   <span class="slds-icon_container slds-icon-utility-arrowdown">
                     <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
-                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+                      <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
                     </svg>
                   </span>
                 </div>
@@ -82,10 +82,24 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
           <td role="gridcell">
             <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
-                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
               <span class="slds-assistive-text">More actions for Acme - 1,200 Widgets</span>
             </button>
+            <div class="slds-dropdown slds-dropdown_left" style="display: none;">
+              <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                <li class="slds-dropdown__item" role="presentation">
+                  <a href="javascript:void(0);" role="menuitem" tabindex="0">
+                    <span class="slds-truncate" title="Editar">Editar</span>
+                  </a>
+                </li>
+                <li class="slds-dropdown__item" role="presentation">
+                  <a href="javascript:void(0);" role="menuitem" tabindex="-1">
+                    <span class="slds-truncate" title="Apagar">Apagar</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </td>
         </tr>
         `;

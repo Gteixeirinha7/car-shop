@@ -4,6 +4,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/angular.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/style/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/styles/SweetalertCss.css">
+    <script src="/scripts/SweetalertJs.js" type="text/javascript"></script>
     <script src="/scripts/index.js" type="text/javascript"></script>
     <script type="text/javascript">
         window.config = {
@@ -17,8 +19,8 @@
         }
     </script>
 </head>
-<body  ng-app="app" ng-controller="ItemController as c" ng-class="{noscroll: c.loading}">
-<div class="lds-css ng-scope loading" ng-if="c.loading == true" ng-model="c.loading">
+<body  ng-app="app" ng-controller="ItemController as c" ng-class="{noscroll: ItemController.loading}">
+<div class="lds-css ng-scope loading" ng-if="ItemController.loading == true" ng-model="ItemController.loading">
     <div class="lds-rolling">
         <div></div>
     </div>
@@ -35,34 +37,34 @@
     <nav class="slds-context-bar__secondary" role="navigation">
         <ul class="slds-grid">
             <li id="tagSalesMan" class="slds-context-bar__item slds-is-active">
-                <a onclick="c.callPage('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
+                <a onclick="ItemController.callPage('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
                     <span class="slds-truncate" title="SalesMan">SalesMan</span>
                 </a>
             </li>
             <li id="tagCar" class="slds-context-bar__item">
-                <a onclick="c.callPage('Car')" class="slds-context-bar__label-action" title="Car">
+                <a onclick="ItemController.callPage('Car')" class="slds-context-bar__label-action" title="Car">
                     <span class="slds-truncate" title="Car">Car</span>
                 </a>
             </li>
             <li id="tagModel" class="slds-context-bar__item">
-                <a onclick="c.callPage('Model')" class="slds-context-bar__label-action" title="Model">
+                <a onclick="ItemController.callPage('Model')" class="slds-context-bar__label-action" title="Model">
                     <span class="slds-truncate" title="Model">Model</span>
                 </a>
             </li>
             <li id="tagBrand" class="slds-context-bar__item">
-                <a onclick="c.callPage('Brand')" class="slds-context-bar__label-action" title="Brand">
+                <a onclick="ItemController.callPage('Brand')" class="slds-context-bar__label-action" title="Brand">
                     <span class="slds-truncate" title="Brand">Brand</span>
                 </a>
             </li>
             <li id="tagClient" class="slds-context-bar__item">
-                <a onclick="c.callPage('Client')" class="slds-context-bar__label-action" title="Client">
+                <a onclick="ItemController.callPage('Client')" class="slds-context-bar__label-action" title="Client">
                     <span class="slds-truncate" title="Client">Client</span>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
-    <div id="contentData" class="slds-context-bar">
+    <div id="contentData" style="margin: 5px;">
     </div>
 </body>
 </html>

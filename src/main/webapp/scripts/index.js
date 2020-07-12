@@ -223,7 +223,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     }
     c.init = function () {
         c.callPageGet('SalesMan');
-        c.$apply();
+        scope.$apply();
     }
 }]);
 })();

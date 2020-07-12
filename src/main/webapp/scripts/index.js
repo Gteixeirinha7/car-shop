@@ -4,8 +4,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     scope.loading = true;
 
     scope.callPageGet = function (table, recordId = null) {
-        scope.removeSelection();
-        $('#tag' + table).addClass('slds-is-active');
         var req = {
             method: 'GET',
             headers: {
@@ -23,17 +21,18 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         scope.finallyHandler();
     };
     scope.handleGET = function (response, table) {
-        window.config[table]['data'] = response.data.objectData;
+        scope.$apply(function () {
+            scope.removeSelection();
+            $('#tag' + table).addClass('slds-is-active');
+            window.config[table]['data'] = response.data.objectData;
 
-        $('#contentData').html(scope.addTable(response.data.objectData, table));
+            $('#contentData').html(scope.addTable(response.data.objectData, table));
 
-        scope.hideAllElements();
-        scope.finallyHandler();
+            scope.hideAllElements();
+            scope.finallyHandler();
+        }, { response, table});
     };
     scope.finallyHandler = function(){
-        scopeService.safeApply($rootScope, function () {
-           scope.loading = false;
-        });
     };
     scope.delete = function (table, recordId = null) {
         Swal.fire({
@@ -227,18 +226,4 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     window.onload = function () {
         scope.initPage();
     }
-    angular.module('main', []).service('scopeService', function () {
-        return {
-            safeApply: function ($scope, fn) {
-                var phase = $scope.$root.$$phase;
-                if (phase == '$apply' || phase == '$digest') {
-                    if (fn && typeof fn === 'function') {
-                        fn();
-                    }
-                } else {
-                    $scope.$apply(fn);
-                }
-            },
-        };
-    });
 }]);

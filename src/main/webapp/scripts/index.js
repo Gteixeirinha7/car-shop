@@ -9,6 +9,14 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
     c.objectData = null;
 
+    c.externalAPI = function(){
+        $http.get('https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/sp').then(function successCallback(response) { c.handlerCovid(response, table) }, function errorCallback(response) { c.handlerCovid(response) });
+
+    }
+    c.handlerCovid = function(reponse){
+        $('#Covid19Id').html(`<p>Casos de Covid: ${reponse.data.cases}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a></p>Mortes de Covid: ${reponse.data.deaths}<a href="https://covid19-brazil-api-docs.now.sh/">(API Externa)</a>`);
+    }
+
     c.callPageGet = function (table, recordId = null) {
         var req = {
             method: 'GET',
@@ -231,6 +239,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     };
     c.init = function () {
         c.callPageGet('SalesMan');
+        c.externalAPI();
     };
     c.getCurrentData = function(table, id){
         return window.config[table].data.filter(item => item.SalesforceId == id)[0];

@@ -65,24 +65,16 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             confirmButtonText: 'Sim'
         }).then((result) => {
             if (result.value) {
-                var options = {
-
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: {
-                        ExternalId: ExternalIds
-                    }
-                }
-                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, options).then(
-                    function successCallback(response) {
+                $.ajax({
+                    url: 'https://car-shop-ftt.herokuapp.com/' + table + '?' + $.param({ "ExternalId": ExternalIds }),
+                    type: 'DELETE',
+                    success: function successCallback(response) {
                         c.handleDelete(response, table);
                     },
-                    function errorCallback(response) {
+                    error: function errorCallback(response) {
                         c.errorHandleDelete(response)
                     }
-                );
+                });
             }
         });
     };

@@ -55,7 +55,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             if (result.value) {
                 var options = {
 
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -287,7 +287,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         var fieldData = '';
         fieldMetaData.forEach(function(item){
             if (item.Type == 'Text')
-                fieldData += c.createSingleIput(table, item.Label, item.Field, (objectData[item.Field] ? objectData[item.Field] : ''));
+                fieldData += c.createSingleIput(table, item.Label, item.Field, (objectData  && objectData[item.Field] ? objectData[item.Field] : ''));
         }, { fieldData, objectData});
         var html  = `
         <div class="slds-form slds-grid">

@@ -31,9 +31,10 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         scope.finallyHandler();
     };
     scope.finallyHandler = function(){
-        $scope.apply();
-    }
-
+        scopeService.safeApply($rootScope, function () {
+           scope.loading = false;
+        });
+    };
     scope.delete = function (table, recordId = null) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
@@ -66,7 +67,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 );
             }
         });
-    }
+    };
     scope.errorHandleDelete = function (response) {
     };
     scope.handleDelete = function (response) {
@@ -226,4 +227,18 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     window.onload = function () {
         scope.initPage();
     }
+    angular.module('main', []).service('scopeService', function () {
+        return {
+            safeApply: function ($scope, fn) {
+                var phase = $scope.$root.$$phase;
+                if (phase == '$apply' || phase == '$digest') {
+                    if (fn && typeof fn === 'function') {
+                        fn();
+                    }
+                } else {
+                    $scope.$apply(fn);
+                }
+            },
+        };
+    });
 }]);

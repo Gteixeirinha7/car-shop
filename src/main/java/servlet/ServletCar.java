@@ -45,17 +45,14 @@ public class ServletCar extends APIHandler {
         initParams();
         JSONObject returnData = new JSONObject();
         List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
-        String sfid = null;
             System.out.println("Read Call");
-            sfid = inputData.get("ExternalId").toString();
-            
             ResultSet rs = this.executeQuery("SELECT C.sfid, C.externalid__c, C.Armored__c, C.Color__c, C.Exchange__c, C.Fuel__c, C.Price__c, C.UsedCar__c, C.Year__c, C.Name " +
                     " , B.Name AS BrandName, B.ExternalId__c AS BrandExternal"+ 
                     " , M.Name AS ModelName, M.ExternalId__c AS ModelExternal "+ 
                     " FROM salesforce.Car__C C"+
                     " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = C.Brand__c"+
                     " LEFT JOIN salesforce.Car_Model__c M ON M.sfid = C.Model__c"+
-                    " WHERE " +(inputData.containsKey("ExternalId") ? (" C.externalid__c = '" + sfid +" AND " ): "") + " C.isdeleted = false");
+                    " WHERE " +(inputData.containsKey("ExternalId") ? (" C.externalid__c = '" + inputData.get("ExternalId").toString() +" AND " ): "") + " C.isdeleted = false");
         while(rs.next()) {
             JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));

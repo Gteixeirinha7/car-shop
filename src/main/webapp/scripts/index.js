@@ -111,7 +111,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         var currItem = JSON.parse(JSON.stringify(itemData));
         var path = prop.split('.');
         path.forEach(function(item){
-            currItem = currItem[item];
+                currItem = currItem[item] ? currItem[item] : 'Vazio';
         }, { prop, currItem, itemData});
 
         return `

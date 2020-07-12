@@ -42,7 +42,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.delete = function (table, ExternalIds) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
-            text: "Essa ação não poderá ser desfeita",
+            text: "Ao deletar o registro, ele vai sumir da base de dados",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -50,12 +50,6 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             confirmButtonText: 'Sim'
         }).then((result) => {
             if (result.value) {
-                var req = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table + '?ExternaId=' + ExternalIds).then(
                     function successCallback(response) {
                         c.handleDelete(response, table)

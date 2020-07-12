@@ -17,7 +17,7 @@
             },
             'Car': {
                 'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name', 'Armored', 'UsedCar', 'Color', 'Exchange'],
-                'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'         , 'Blindado?', 'Carro usado?', 'Cor', 'Câmbio'],
+                'fieldsLabel': ['Nome', 'Gasolina', 'Ano', 'Marca', 'Modelo'         , 'Blindado?', 'Carro usado?', 'Cor', 'Cambio'],
                 'data': {}
             },
             'Model': {
@@ -32,7 +32,7 @@
             },
             'Client': {
                 'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode' , 'City', 'Street', 'State', 'Country'],
-                'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP', 'Cidade', 'Rua', 'Estado', 'País'],
+                'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP', 'Cidade', 'Rua', 'Estado', 'Pais'],
                 'data': {}
             }
         }

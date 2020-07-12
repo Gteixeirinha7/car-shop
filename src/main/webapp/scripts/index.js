@@ -251,20 +251,22 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
                 } else if (!externalId){
                     c.objectData['ExternalId'] = externalId;
+                    $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
+                        function successCallback(response) {
+                            c.handleSucessEdit(response, table);
+                        },
+                        function errorCallback(response) {
+                            c.errorHandleSucessEdit(response)
+                        }
+                    );
                 }
-                $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
-                    function successCallback(response) {
-                        c.handleSucessEdit(response, table);
-                    },
-                    function errorCallback(response) {
-                        c.errorHandleSucessEdit(response)
-                    }
-                );
                 c.objectData = null;
             }
         });
     };
     c.checkFields = function (field, event){
+        if (c.objectData == null)
+            c.objectData = {};
         c.objectData[field] = event.value;
     };
     c.getBody = function (table){

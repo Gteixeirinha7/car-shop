@@ -37,27 +37,27 @@
     <nav class="slds-context-bar__secondary" role="navigation">
         <ul class="slds-grid">
             <li id="tagSalesMan" class="slds-context-bar__item slds-is-active">
-                <a onclick="ItemController.callPage('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
+                <a ng-click="ItemController.callPage('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
                     <span class="slds-truncate" title="SalesMan">SalesMan</span>
                 </a>
             </li>
             <li id="tagCar" class="slds-context-bar__item">
-                <a onclick="ItemController.callPage('Car')" class="slds-context-bar__label-action" title="Car">
+                <a ng-click="ItemController.callPage('Car')" class="slds-context-bar__label-action" title="Car">
                     <span class="slds-truncate" title="Car">Car</span>
                 </a>
             </li>
             <li id="tagModel" class="slds-context-bar__item">
-                <a onclick="ItemController.callPage('Model')" class="slds-context-bar__label-action" title="Model">
+                <a ng-click="ItemController.callPage('Model')" class="slds-context-bar__label-action" title="Model">
                     <span class="slds-truncate" title="Model">Model</span>
                 </a>
             </li>
             <li id="tagBrand" class="slds-context-bar__item">
-                <a onclick="ItemController.callPage('Brand')" class="slds-context-bar__label-action" title="Brand">
+                <a ng-click="ItemController.callPage('Brand')" class="slds-context-bar__label-action" title="Brand">
                     <span class="slds-truncate" title="Brand">Brand</span>
                 </a>
             </li>
             <li id="tagClient" class="slds-context-bar__item">
-                <a onclick="ItemController.callPage('Client')" class="slds-context-bar__label-action" title="Client">
+                <a ng-click="ItemController.callPage('Client')" class="slds-context-bar__label-action" title="Client">
                     <span class="slds-truncate" title="Client">Client</span>
                 </a>
             </li>

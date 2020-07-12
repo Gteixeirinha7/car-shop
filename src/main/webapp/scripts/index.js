@@ -238,7 +238,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.handleEdit = function(table, externalId){
         Swal.fire({
             title: 'Digite os dados do registro',
-            html: c.getBody(table),
+            html: c.getBody(table, externalId),
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -283,11 +283,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     };
     c.getBody = function (table){
         var fieldMetaData = window.config[table]['fieldsMetaData'];
+        var objectData = window.config[table].data.filter(item => item.ExternalId == id)[0];
         var fieldData = '';
         fieldMetaData.forEach(function(item){
             if (item.Type == 'Text')
-                fieldData += c.createSingleIput(table, item.Label, item.Field);
-        }, {fieldData});
+                fieldData += c.createSingleIput(table, item.Label, item.Field, (objectData[item.Field] ? objectData[item.Field] : ''));
+        }, { fieldData, objectData});
         var html  = `
         <div class="slds-form slds-grid">
             ${fieldData}
@@ -296,13 +297,13 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
         return html;
     }
-    c.createSingleIput = function (table, label, field){
+    c.createSingleIput = function (table, label, field, value){
         return `
         <div class="slds-size--1-of-2">
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="form-element-${field}-${table}">${label}</label>
                 <div class="slds-form-element__control">
-                    <input onchange="window.checkFields('${field}', event)" type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" />
+                    <input onchange="window.checkFields('${field}', event)" type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" value="${value}" />
                 </div>
             </div>
         </div>`;

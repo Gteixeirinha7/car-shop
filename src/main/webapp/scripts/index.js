@@ -59,7 +59,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 var body = {};
                 var bodyRequest = c.getCurrentData(table, recordId);
                 if (bodyRequest) {
-                    body['ExternalId'] = bodyRequest['Ext   ernalId'];
+                    body['ExternalId'] = bodyRequest['ExternalId'];
                 } else {
                     body['ExternalId'] = 'null';
                 }

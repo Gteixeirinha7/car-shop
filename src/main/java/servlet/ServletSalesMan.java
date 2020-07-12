@@ -46,17 +46,13 @@ public class ServletSalesMan extends APIHandler {
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         initParams();
         JSONObject returnData = new JSONObject();
-        JSONObject returnInternalData = new JSONObject();
-        String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
+        List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
             System.out.println("Read Call");
-            sfid = inputData.get("ExternalId").toString();
 
             ResultSet rs = this.executeQuery("SELECT sfid, Name, externalid__c, ExperienceYears__c, CNH__c, Experience__c, CPF__c, Email__c, Age__c, Goal__c, Phone__c " + " FROM salesforce.SalesMan__c "
-                    + " WHERE externalid__c = '" + sfid + "' AND isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load SalesMan, SalesMan doesn't exists", "APISalesMan.executeGET");
-            }
+                    + " WHERE  " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "") + " isdeleted = false");
+        while(rs.next()) {
+            JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
@@ -68,11 +64,10 @@ public class ServletSalesMan extends APIHandler {
             returnInternalData.put("Age", rs.getInt("Age__c"));
             returnInternalData.put("Goal", rs.getDouble("Goal__c"));
             returnInternalData.put("Phone", rs.getString("Phone__c"));
-        } else {
-            throw new AppException("Fail to load SalesMan, specify a 'ExternalId'", "APISalesMan.executeGET");
+            returnInternalDataList.add(returnInternalData);
         }
         returnData.put("statusCode", "200");
-        returnData.put("objectData", returnInternalData);
+        returnData.put("objectData", returnInternalDataList);
         return returnData;
     }
 

@@ -25,7 +25,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
     this.handleGET = function (response, table) {
         this.loading = true;
 
-        $('#contentData').html(this.addTable(table, response.objectData))
+        $('#contentData').html(this.addTable(table, response.data.objectData))
 
         $scope.$apply(function () {
             var c = $scope.c;

@@ -8,8 +8,8 @@
     <script type="text/javascript">
         window.config = {
             'SalesMan' : {
-                'fields' :     ['Exchange', 'Year'],
-                'fieldsLabel': ['Câmbio'  , 'Ano']
+                'fields' :     ['Name', 'CPF', 'Age'],
+                'fieldsLabel': ['Nome' ,'CPF', 'Idade']
             },
             'Car': {
                 'fields': ''

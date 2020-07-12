@@ -250,7 +250,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     ).then((result) => { c.handleEdit(table, externalId);});
 
                 } else {
-                    if (!externalId){
+                    if (externalId){
                         c.objectData['ExternalId'] = externalId;
                     }
                     $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(

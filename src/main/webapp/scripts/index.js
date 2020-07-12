@@ -56,7 +56,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         'Content-Type': 'application/json'
                     }
                 }
-                $http.delete('https://car-shop-ftt.herokuapp.com/' + table + '?ExternaId=' + ExternalIds, req).then(
+                $http.delete('https://car-shop-ftt.herokuapp.com/' + table + '?ExternaId=' + ExternalIds).then(
                     function successCallback(response) {
                         c.handleDelete(response, table)
                     },

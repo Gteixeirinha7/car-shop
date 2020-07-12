@@ -56,10 +56,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         'Content-Type': 'application/json'
                     }
                 }
-                var body = {};
-                    body['ExternalId'] = ExternalIds;
-
-                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
+                $http.delete('https://car-shop-ftt.herokuapp.com/' + table + '?ExternaId=' + ExternalIds, req).then(
                     function successCallback(response) {
                         c.handleDelete(response, table)
                     },
@@ -67,6 +64,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         c.errorHandleDelete(response)
                     }
                 );
+                c.callPageGet(table);
             }
         });
     };
@@ -79,7 +77,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'Deletado!',
             'Registro deletado com sucesso',
             'success'
-        )
+        );
     };
     c.edit = function (table, recordId = null) {
         Swal.fire({

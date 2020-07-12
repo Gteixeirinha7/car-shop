@@ -1,9 +1,10 @@
 var app = angular.module('app', []);
 
 app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
-    scope.loading = true;
+    var c = this;
+    c.loading = true;
 
-    scope.callPageGet = function (table, recordId = null) {
+    c.callPageGet = function (table, recordId = null) {
         var req = {
             method: 'GET',
             headers: {
@@ -15,25 +16,25 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             body['ExternalId'] = recordId;
         }
 
-        $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { scope.handleGET(response, table) }, function errorCallback(response) { scope.errorHandleGET(response) });
+        $http.get('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(function successCallback(response) { c.handleGET(response, table) }, function errorCallback(response) { c.errorHandleGET(response) });
     };
-    scope.errorHandleGET = function (response) {
-        scope.finallyHandler();
+    c.errorHandleGET = function (response) {
+        c.finallyHandler();
     };
-    scope.handleGET = function (response, table) {
-            scope.removeSelection();
-            $('#tag' + table).addClass('slds-is-active');
-            window.config[table]['data'] = response.data.objectData;
+    c.handleGET = function (response, table) {
+        window.config[table]['data'] = response.data.objectData;
 
-            $('#contentData').html(scope.addTable(response.data.objectData, table));
+        c.removeSelection();
+        $('#tag' + table).addClass('slds-is-active');
 
-            scope.hideAllElements();
-            scope.finallyHandler();
-            scope.$apply();
+        $('#contentData').html(c.addTable(response.data.objectData, table));
+
+        c.hideAllElements();
+        c.finallyHandler();
     };
-    scope.finallyHandler = function(){
+    c.finallyHandler = function(){
     };
-    scope.delete = function (table, recordId = null) {
+    c.delete = function (table, recordId = null) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
             text: "Essa ação não poderá ser desfeita",
@@ -57,19 +58,19 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
 
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
                     function successCallback(response) {
-                        scope.handleDelete(response, table)
+                        c.handleDelete(response, table)
                     },
                     function errorCallback(response) {
-                        scope.errorHandleDelete(response)
+                        c.errorHandleDelete(response)
                     }
                 );
             }
         });
     };
-    scope.errorHandleDelete = function (response) {
+    c.errorHandleDelete = function (response) {
     };
-    scope.handleDelete = function (response) {
-        scope.loading = true;
+    c.handleDelete = function (response) {
+        c.loading = true;
 
         Swal.fire(
             'Deletado!',
@@ -77,7 +78,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'success'
         )
     };
-    scope.addTableSingleHader = function (tableLabel){
+    c.addTableSingleHader = function (tableLabel){
         return `
             <th aria-label="${tableLabel}" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
               <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0">
@@ -100,7 +101,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </th>
         `;
     };
-    scope.returnSingleData = function (itemData, prop) {
+    c.returnSingleData = function (itemData, prop) {
         var currItem = JSON.parse(JSON.stringify(itemData));
         var path = prop.split('.');
         path.forEach(function(item){
@@ -113,10 +114,10 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </th>
         `;
     }
-    scope.addDataItem = function (table, item) {
+    c.addDataItem = function (table, item) {
         var dataTable = '';
         window.config[table]['fields'].forEach(function (prop) {
-            dataTable += scope.returnSingleData(item, prop);
+            dataTable += c.returnSingleData(item, prop);
         }, { dataTable });
         return `
         <tr aria-selected="false" class="slds-hint-parent">
@@ -131,7 +132,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           </td>
           ${dataTable}
           <td role="gridcell">
-            <button  ng-click="scope.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+            <button  ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
@@ -139,12 +140,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </button>
             <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation" ng-click="scope.edit('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" ng-click="c.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation" ng-click="scope.delete('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" ng-click="c.delete('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -155,15 +156,15 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         </tr>
         `;
     };
-    scope.addTable = function(data, table){
+    c.addTable = function(data, table){
         var tableHeader = '';
         window.config[table]['fieldsLabel'].forEach(function (item) {
-            tableHeader += scope.addTableSingleHader(item);
+            tableHeader += c.addTableSingleHader(item);
         }, { tableHeader });
 
         var tableData = '';
         data.forEach(function (item) {
-            tableData += scope.addDataItem(table, item);
+            tableData += c.addDataItem(table, item);
         }, { tableData, table });
 
         return `
@@ -174,7 +175,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                 <div class="slds-th__action slds-th__action_form">
                   <div class="slds-checkbox">
-                    <input ng-click="scope.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                    <input ng-click="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
                     <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
                       <span class="slds-checkbox_faux"></span>
                       <span class="slds-form-element__label slds-assistive-text">Selecionar Todos</span>
@@ -193,36 +194,36 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           </tbody>
         </table>`;
     }
-    scope.markAll = function (event) {
+    c.markAll = function (event) {
         var elements = $('div[id^="checkbox-"]');
         for (var i = 0; i < elements.length; i++) {
             elements[i].checked = event.checked;
         }
     }
-    scope.hideAllElements = function () {
+    c.hideAllElements = function () {
         var elements = $('div[id^="actions-"]');
         for(var i =0; i<elements.length; i++){
             $('#'+elements[i].id).hide();
         }
     }
-    scope.removeSelection = function () {
+    c.removeSelection = function () {
         $('#tagSalesMan').removeClass('slds-is-active');
         $('#tagCar').removeClass('slds-is-active');
         $('#tagModel').removeClass('slds-is-active');
         $('#tagBrand').removeClass('slds-is-active');
         $('#tagClient').removeClass('slds-is-active');
     };
-    scope.showHide = function(Ids){
+    c.showHide = function(Ids){
         if ($('#' + Ids).css('display') == 'none'){
             $('#' + Ids).show();
         } else {
             $('#' + Ids).hide();
         }
     }
-    scope.initPage = function () {
-        scope.callPageGet('SalesMan');
+    c.initPage = function () {
+        c.callPageGet('SalesMan');
     }
     window.onload = function () {
-        scope.initPage();
+        c.initPage();
     }
 }]);

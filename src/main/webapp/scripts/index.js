@@ -226,4 +226,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.callPageGet('SalesMan');
     }
 }]);
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
 })();

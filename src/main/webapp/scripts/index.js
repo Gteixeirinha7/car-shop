@@ -4,10 +4,6 @@ app.controller('ItemController', ['scope', '$http', function (scope, $http) {
     scope.loading = true;
 
     scope.callPageGet = function (table, recordId = null) {
-        scope.$apply(function () {
-            var c = scope.c;
-            scope.loading = true;
-        });
         scope.removeSelection();
         $('#tag' + table).addClass('slds-is-active');
         var req = {
@@ -35,10 +31,6 @@ app.controller('ItemController', ['scope', '$http', function (scope, $http) {
         scope.finallyHandler();
     };
     scope.finallyHandler = function(){
-        scope.$apply(function () {
-            var c = scope.c;
-            scope.loading = false;
-        });
     }
 
     scope.delete = function (table, recordId = null) {
@@ -84,11 +76,6 @@ app.controller('ItemController', ['scope', '$http', function (scope, $http) {
             'Registro deletado com sucesso',
             'success'
         )
-
-        scope.$apply(function () {
-            var c = scope.c;
-            scope.loading = false;
-        });
     };
     scope.addTableSingleHader = function (tableLabel){
         return `

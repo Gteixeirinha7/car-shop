@@ -311,7 +311,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         return html;
     }
     c.createSingleIput = function (table, label, field, value){
-        if(c.objectData)
+        if(c.objectData == null)
             c.objectData = {}
         c.objectData[field] = value;
         return `

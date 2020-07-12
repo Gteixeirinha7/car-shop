@@ -32,7 +32,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         this.hideAllElements();
 
         this.loading = false;
-        scope.$apply();
+        $scope.$apply();
     };
 
     this.delete = function (table, recordId = null) {
@@ -181,7 +181,7 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
                 <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                 <div class="slds-th__action slds-th__action_form">
                   <div class="slds-checkbox">
-                    <input type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                    <input ng-click="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
                     <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
                       <span class="slds-checkbox_faux"></span>
                       <span class="slds-form-element__label slds-assistive-text">Selecionar Todos</span>
@@ -199,6 +199,12 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
               ${tableData}  
           </tbody>
         </table>`;
+    }
+    this.markAll = function (event) {
+        var elements = $('div[id^="checkbox-"]');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].checked = event.checked;
+        }
     }
     this.hideAllElements = function () {
         var elements = $('div[id^="actions-"]');

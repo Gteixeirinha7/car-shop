@@ -4,6 +4,7 @@ var app = angular.module('app', []);
 app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     var c = this;
     c.loading = true;
+    c.allChecked = false;
 
     c.callPageGet = function (table, recordId = null) {
         var req = {
@@ -36,6 +37,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.finallyHandler = function () {
         scope.$applyAsync();
         scope.$evalAsync();
+        c.allChecked = false;
     };
     c.delete = function (table, recordId = null) {
         Swal.fire({
@@ -80,6 +82,47 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'Registro deletado com sucesso',
             'success'
         )
+    };
+    c.edit = function (table, recordId = null) {
+        Swal.fire({
+            title: 'Tem certeaza que deseja apagar?',
+            text: "Essa ação não poderá ser desfeita",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim'
+        }).then((result) => {
+            if (result.value) {
+                var req = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                var body = getBodyModal(table);
+
+                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
+                    function successCallback(response) {
+                        c.handleEdit(response, table)
+                    },
+                    function errorCallback(response) {
+                        c.errorHandleEdit(response)
+                    }
+                );
+            }
+        });
+    };
+    c.errorHandleEdit = function (response) {
+    };
+    c.handleEdit = function (response) {
+        c.loading = true;
+
+        Swal.fire(
+            'Editado!',
+            'Registro editado com sucesso',
+            'success'
+        );
     };
     c.addTableSingleHader = function (tableLabel){
         return `
@@ -135,7 +178,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           </td>
           ${dataTable}
           <td role="gridcell">
-            <button onclick="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+            <button onclick="window.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
@@ -143,12 +186,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </button>
             <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" >
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation" onclick="c.edit('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="window.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation" onclick="c.delete('${table}', '${item.SalesforceId}')">
+                <li class="slds-dropdown__item" role="presentation" onclick="window.delete('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -197,10 +240,11 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           </tbody>
         </table>`;
     }
-    c.markAll = function (event) {
+    c.markAll = function () {
+        c.allChecked = !c.allChecked;
         var elements = $('div[id^="checkbox-"]');
         for (var i = 0; i < elements.length; i++) {
-            elements[i].checked = event.checked;
+            elements[i].checked = c.allChecked;
         }
     }
     c.hideAllElements = function () {
@@ -222,13 +266,22 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         } else {
             $('#' + Ids).hide();
         }
-    }
+    };
     c.init = function () {
         c.callPageGet('SalesMan');
-    }
-    window.markAll = function(event){
-        c.markAll(event);
-    }
+    };
+    window.markAll = function(){
+        c.markAll();
+    };
+    window.showHide = function (Ids) {
+        c.showHide(Ids);
+    };
+    window.edit = function (table, Id) {
+        c.edit();
+    };
+    window.delete = function (table, Id) {
+        c.delete(table, Id);
+    };
 }]);
 app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);

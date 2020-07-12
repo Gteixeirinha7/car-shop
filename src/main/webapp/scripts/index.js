@@ -53,7 +53,15 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             confirmButtonText: 'Sim'
         }).then((result) => {
             if (result.value) {
-                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, { body: { ExternalId: ExternalIds}}).then(
+                var options = {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json'
+                    }),
+                    body: {
+                        ExternalId: ExternalIds
+                    }
+                }
+                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, options).then(
                     function successCallback(response) {
                         c.handleDelete(response, table);
                     },

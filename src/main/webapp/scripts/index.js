@@ -1,3 +1,4 @@
+(function () {
 var app = angular.module('app', []);
 
 app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
@@ -220,10 +221,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             $('#' + Ids).hide();
         }
     }
-    c.initPage = function () {
+    c.init = function () {
         c.callPageGet('SalesMan');
-    }
-    window.onload = function () {
-        c.initPage();
+        c.$apply();
     }
 }]);
+})();

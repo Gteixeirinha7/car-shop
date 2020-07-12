@@ -52,19 +52,18 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             if (result.value) {
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table + '?ExternaId=' + ExternalIds).then(
                     function successCallback(response) {
-                        c.handleDelete(response, table)
+                        c.handleDelete(response, table);
                     },
                     function errorCallback(response) {
                         c.errorHandleDelete(response)
                     }
                 );
-                c.callPageGet(table);
             }
         });
     };
     c.errorHandleDelete = function (response) {
     };
-    c.handleDelete = function (response) {
+    c.handleDelete = function (response, table) {
         c.loading = true;
 
         Swal.fire(
@@ -72,6 +71,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             'Registro deletado com sucesso',
             'success'
         );
+        c.callPageGet(table);
     };
     c.edit = function (table, recordId = null) {
         Swal.fire({

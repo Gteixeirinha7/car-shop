@@ -24,7 +24,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         c.finallyHandler();
     };
     c.handleGET = function (response, table) {
-        window.config[table]['data'] = response.data.objectData;
+        window.config[table]['data'] = response.data.objectData.filter(item => item.ExternalId != null);
 
         c.removeSelection();
         $('#tag' + table).addClass('slds-is-active');

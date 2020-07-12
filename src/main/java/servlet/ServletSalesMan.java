@@ -50,7 +50,7 @@ public class ServletSalesMan extends APIHandler {
             System.out.println("Read Call");
 
             ResultSet rs = this.executeQuery("SELECT sfid, Name, externalid__c, ExperienceYears__c, CNH__c, Experience__c, CPF__c, Email__c, Age__c, Goal__c, Phone__c " + " FROM salesforce.SalesMan__c "
-                    + " WHERE  " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "") + " isdeleted = false AND externalid__c != null");
+                    + " WHERE  " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "") + " isdeleted = false");
         while(rs.next()) {
             JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));

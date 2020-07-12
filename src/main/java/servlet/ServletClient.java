@@ -55,7 +55,7 @@ public class ServletClient extends APIHandler {
             ResultSet rs = this.executeQuery(
                     "SELECT sfid, Name, externalid__c, Phone, Email__c, Active__c, Type__c, CPF__c , CNPJ__c, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet"
                             + " FROM salesforce.Account " + " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
-                            + " isdeleted = false AND externalid__c != null");
+                            + " isdeleted = false");
         while (rs.next()) {
             JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));

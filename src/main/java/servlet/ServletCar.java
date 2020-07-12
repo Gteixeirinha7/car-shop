@@ -52,7 +52,7 @@ public class ServletCar extends APIHandler {
                     " FROM salesforce.Car__C C"+
                     " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = C.Brand__c"+
                     " LEFT JOIN salesforce.Car_Model__c M ON M.sfid = C.Model__c"+
-                    " WHERE " +(inputData.containsKey("ExternalId") ? (" C.externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "") + " C.isdeleted = false AND c.externalid__c != null");
+                    " WHERE " +(inputData.containsKey("ExternalId") ? (" C.externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "") + " C.isdeleted = false ");
         while(rs.next()) {
             JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));

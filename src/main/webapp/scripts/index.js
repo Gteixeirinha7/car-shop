@@ -42,13 +42,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.delete = function (table, recordId = null) {
         Swal.fire({
             title: 'Tem certeaza que deseja apagar?',
-            text: "<p>Essa ação não poderá ser desfeita</p>",
+            text: "Essa ação não poderá ser desfeita",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim',
-            html: true
+            confirmButtonText: 'Sim'
         }).then((result) => {
             if (result.value) {
                 var req = {

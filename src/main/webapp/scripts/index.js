@@ -178,7 +178,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                 <div class="slds-th__action slds-th__action_form">
                   <div class="slds-checkbox">
-                    <inputonclick="c.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                    <input onclick="window.markAll(event)" type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
                     <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
                       <span class="slds-checkbox_faux"></span>
                       <span class="slds-form-element__label slds-assistive-text">Selecionar Todos</span>
@@ -225,6 +225,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     }
     c.init = function () {
         c.callPageGet('SalesMan');
+    }
+    window.markAll = function(event){
+        c.markAll(event);
     }
 }]);
 app.config(['$qProvider', function ($qProvider) {

@@ -1,6 +1,6 @@
 <html  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"   ng-app="app">
 <head>
-    <title>Car Shop FTT</title>
+        <title>Car Shop FTT</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/angular.min.js" type="text/javascript"></script>
@@ -56,27 +56,27 @@
     <nav class="slds-context-bar__secondary" role="navigation">
         <ul class="slds-grid">
             <li id="tagSalesMan" class="slds-context-bar__item slds-is-active">
-                <a onclick="c.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
+                <a ng-click="c.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
                     <span class="slds-truncate" title="SalesMan">SalesMan</span>
                 </a>
             </li>
             <li id="tagCar" class="slds-context-bar__item">
-                <a onclick="c.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
+                <a ng-click="c.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
                     <span class="slds-truncate" title="Car">Car</span>
                 </a>
             </li>
             <li id="tagModel" class="slds-context-bar__item">
-                <a onclick="c.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
+                <a ng-click="c.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
                     <span class="slds-truncate" title="Model">Model</span>
                 </a>
             </li>
             <li id="tagBrand" class="slds-context-bar__item">
-                <a onclick="c.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
+                <a ng-click="c.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
                     <span class="slds-truncate" title="Brand">Brand</span>
                 </a>
             </li>
             <li id="tagClient" class="slds-context-bar__item">
-                <a onclick="c.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
+                <a ng-click="c.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
                     <span class="slds-truncate" title="Client">Client</span>
                 </a>
             </li>

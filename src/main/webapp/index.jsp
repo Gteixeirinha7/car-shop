@@ -19,8 +19,8 @@
         }
     </script>
 </head>
-<body  ng-app="app" ng-controller="ItemController as c" ng-class="{noscroll: ItemController.loading}">
-<div class="lds-css ng-scope loading" ng-if="ItemController.loading == true" ng-model="ItemController.loading">
+<body  ng-app="app" ng-controller="c as c" ng-class="{noscroll: c.loading}">
+<div class="lds-css ng-scope loading" ng-if="c.loading == true" ng-model="c.loading">
     <div class="lds-rolling">
         <div></div>
     </div>
@@ -37,27 +37,27 @@
     <nav class="slds-context-bar__secondary" role="navigation">
         <ul class="slds-grid">
             <li id="tagSalesMan" class="slds-context-bar__item slds-is-active">
-                <a ng-click="ItemController.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
+                <a ng-click="c.callPageGet('SalesMan')" class="slds-context-bar__label-action" title="SalesMan">
                     <span class="slds-truncate" title="SalesMan">SalesMan</span>
                 </a>
             </li>
             <li id="tagCar" class="slds-context-bar__item">
-                <a ng-click="ItemController.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
+                <a ng-click="c.callPageGet('Car')" class="slds-context-bar__label-action" title="Car">
                     <span class="slds-truncate" title="Car">Car</span>
                 </a>
             </li>
             <li id="tagModel" class="slds-context-bar__item">
-                <a ng-click="ItemController.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
+                <a ng-click="c.callPageGet('Model')" class="slds-context-bar__label-action" title="Model">
                     <span class="slds-truncate" title="Model">Model</span>
                 </a>
             </li>
             <li id="tagBrand" class="slds-context-bar__item">
-                <a ng-click="ItemController.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
+                <a ng-click="c.callPageGet('Brand')" class="slds-context-bar__label-action" title="Brand">
                     <span class="slds-truncate" title="Brand">Brand</span>
                 </a>
             </li>
             <li id="tagClient" class="slds-context-bar__item">
-                <a ng-click="ItemController.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
+                <a ng-click="c.callPageGet('Client')" class="slds-context-bar__label-action" title="Client">
                     <span class="slds-truncate" title="Client">Client</span>
                 </a>
             </li>

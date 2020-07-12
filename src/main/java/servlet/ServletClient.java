@@ -49,19 +49,15 @@ public class ServletClient extends APIHandler {
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         initParams();
         JSONObject returnData = new JSONObject();
-        JSONObject returnInternalData = new JSONObject();
-        String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
+        List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
             System.out.println("Read Call");
-            sfid = inputData.get("ExternalId").toString();
 
             ResultSet rs = this.executeQuery(
                     "SELECT sfid, Name, externalid__c, Phone, Email__c, Active__c, Type__c, CPF__c , CNPJ__c, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet"
-                            + " FROM salesforce.Account " + " WHERE externalid__c = '" + sfid
-                            + "' AND isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Client, Client doesn't exists", "APIClient.executeGET");
-            }
+                            + " FROM salesforce.Account " + " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
+                            + " isdeleted = false");
+        while (rs.next()) {
+            JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
@@ -79,12 +75,11 @@ public class ServletClient extends APIHandler {
             returnInternalData.put("PostalCode", rs.getString("BillingPostalCode"));
             returnInternalData.put("State", rs.getString("BillingState"));
             returnInternalData.put("Street", rs.getString("BillingStreet"));
+            returnInternalDataList.add(returnInternalData);
 
-        } else {
-            throw new AppException("Fail to load Client, specify a 'ExternalId'", "APIClient.executeGET");
         }
         returnData.put("statusCode", "200");
-        returnData.put("objectData", returnInternalData);
+        returnData.put("objectData", returnInternalDataList);
         return returnData;
     }
 

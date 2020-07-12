@@ -39,20 +39,17 @@ public class ServletModel extends APIHandler {
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         initParams();
         JSONObject returnData = new JSONObject();
-        JSONObject returnInternalData = new JSONObject();
-        String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
+        List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
             System.out.println("Read Call");
-            sfid = inputData.get("ExternalId").toString();
-
             ResultSet rs = this.executeQuery(
                     "SELECT M.sfid, M.Name, M.Car_Brand__c, M.externalid__c "    
                             + " , B.Name AS BrandName, B.ExternalId__c AS BrandExternal " + " FROM salesforce.Car_Model__C M"
                             + " LEFT JOIN salesforce.Car_Brand__c B ON B.sfid = M.Car_Brand__c"
-                            + " WHERE M.externalid__c = '" + sfid + "' AND M.isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Car Model, Car Model doesn't exists", "APICarModel.executeGET");
-            }
+                            + " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
+                            + " isdeleted = false");
+            
+        while (rs.next()) {
+            JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
@@ -67,11 +64,10 @@ public class ServletModel extends APIHandler {
             } catch (SQLException e) {
 
             }
-        } else {
-            throw new AppException("Fail to load Model, specify a 'ExternalId'", "APICarModel.executeGET");
+            returnInternalDataList.add(returnInternalData);
         }
         returnData.put("statusCode", "200");
-        returnData.put("objectData", returnInternalData);
+        returnData.put("objectData", returnInternalDataList);
         return returnData;
     }
     

@@ -38,25 +38,21 @@ public class ServletBrand extends APIHandler {
     public JSONObject executeGET(JSONObject inputData) throws AppException, SQLException {
         initParams();
         JSONObject returnData = new JSONObject();
-        JSONObject returnInternalData = new JSONObject();
-        String sfid = null;
-        if (inputData.containsKey("ExternalId")) {
             System.out.println("Read Call");
-            sfid = inputData.get("ExternalId").toString();
+            List<JSONObject> returnInternalDataList = new ArrayList<JSONObject>();
 
             ResultSet rs = this.executeQuery("SELECT sfid, Name, externalid__c " + " FROM salesforce.Car_Brand__c " + 
-                    " WHERE externalid__c = '"+ sfid + "' AND isdeleted = false");
-            if (!rs.next()) {
-                throw new AppException("Fail to load Car Brand, Car Brand doesn't exists", "APICarBrand.executeGET");
-            }
+                    " WHERE " +(inputData.containsKey("ExternalId") ? (" externalid__c = '" + inputData.get("ExternalId").toString() +"' AND " ): "")
+                            + " isdeleted = false");
+        while (rs.next()) {
+            JSONObject returnInternalData = new JSONObject();
             returnInternalData.put("SalesforceId", rs.getString("sfid"));
             returnInternalData.put("Name", rs.getString("Name"));
             returnInternalData.put("ExternalId", rs.getString("externalid__c"));
-        } else {
-            throw new AppException("Fail to load Brand, specify a 'ExternalId'", "APICarBrand.executeGET");
-        }
+            returnInternalDataList.add(returnInternalData);
+        } 
         returnData.put("statusCode", "200");
-        returnData.put("objectData", returnInternalData);
+        returnData.put("objectData", returnInternalDataList);
         return returnData;
     }
 

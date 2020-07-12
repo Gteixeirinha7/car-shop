@@ -311,6 +311,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         return html;
     }
     c.createSingleIput = function (table, label, field, value){
+        if(c.objectData)
+            c.objectData = {}
+        c.objectData[field] = value;
         return `
         <div class="slds-size--1-of-2">
             <div class="slds-form-element">

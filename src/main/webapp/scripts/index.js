@@ -32,6 +32,56 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
             c.loading = false;
         });
     };
+
+    this.delete = function (table, recordId = null) {
+        Swal.fire({
+            title: 'Tem certeaza que deseja apagar?',
+            text: "Essa ação não poderá ser desfeita",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim'
+        }).then((result) => {
+            if (result.value) {
+                var req = {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                var body = {};
+                if (recordId != null) {
+                    body['ExternalId'] = recordId;
+                }
+
+                $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
+                    function successCallback(response) {
+                        c.handleDelete(response, table)
+                    },
+                    function errorCallback(response) {
+                        c.errorHandleDelete(response)
+                    }
+                );
+            }
+        });
+    }
+    this.errorHandleDelete = function (response) {
+    };
+    this.handleDelete = function (response) {
+        this.loading = true;
+
+        Swal.fire(
+            'Deletado!',
+            'Registro deletado com sucesso',
+            'success'
+        )
+
+        $scope.$apply(function () {
+            var c = $scope.c;
+            c.loading = false;
+        });
+    };
     this.addTableSingleHader = function (tableLabel){
         return `
             <th aria-label="${tableLabel}" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
@@ -80,20 +130,20 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
           </td>
           ${dataTable}
           <td role="gridcell">
-            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+            <button ng-click="c.showHide('actions-${item.SalesforceId}')" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
               <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
                 <use xlink:href="/style/icons/utility-sprite/svg/symbols.svg#down"></use>
               </svg>
               <span class="slds-assistive-text">More actions for Acme - 1,200 Widgets</span>
             </button>
-            <div class="slds-dropdown slds-dropdown_left" style="display: none;">
+            <div id="actions-${item.SalesforceId}" class="slds-dropdown slds-dropdown_left" style="display: none;">
               <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                <li class="slds-dropdown__item" role="presentation">
+                <li class="slds-dropdown__item" role="presentation" ng-click="c.edit('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="0">
                     <span class="slds-truncate" title="Editar">Editar</span>
                   </a>
                 </li>
-                <li class="slds-dropdown__item" role="presentation">
+                <li class="slds-dropdown__item" role="presentation" ng-click="c.delete('${table}', '${item.SalesforceId}')">
                   <a href="javascript:void(0);" role="menuitem" tabindex="-1">
                     <span class="slds-truncate" title="Apagar">Apagar</span>
                   </a>
@@ -149,6 +199,13 @@ app.controller('ItemController', ['$scope', '$http', function ($scope, $http) {
         $('#tagBrand').removeClass('slds-is-active');
         $('#tagClient').removeClass('slds-is-active');
     };
+    this.showHide = function(Ids){
+        if ($('#' + Ids).css('display') == 'none'){
+            $('#' + Ids).show();
+        } else {
+            $('#' + Ids).hide();
+        }
+    }
     this.initPage = function () {
         c.callPageGet('SalesMan');
     }

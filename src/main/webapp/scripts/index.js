@@ -54,6 +54,11 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         }).then((result) => {
             if (result.value) {
                 var options = {
+
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: {
                         ExternalId: ExternalIds
                     }

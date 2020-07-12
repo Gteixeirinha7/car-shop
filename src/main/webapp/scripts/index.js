@@ -57,8 +57,11 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     }
                 }
                 var body = {};
-                if (recordId != null) {
-                    body['ExternalId'] = recordId;
+                var bodyRequest = c.getCurrentData();
+                if (bodyRequest) {
+                    body['ExternalId'] = bodyRequest['Ext   ernalId'];
+                } else {
+                    body['ExternalId'] = 'null';
                 }
 
                 $http.delete('https://car-shop-ftt.herokuapp.com/' + table, body, req).then(
@@ -270,6 +273,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.init = function () {
         c.callPageGet('SalesMan');
     };
+    c.getCurrentData = function(table, id){
+        return window.config[table].data.filter(item => item.SalesforceId == id)[0];
+    }
     window.markAll = function(){
         c.markAll();
     };

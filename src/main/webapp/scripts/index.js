@@ -281,9 +281,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             c.objectData = {};
         c.objectData[field] = event.target.value;
     };
-    c.getBody = function (table){
+    c.getBody = function (table, externalId){
         var fieldMetaData = window.config[table]['fieldsMetaData'];
-        var objectData = window.config[table].data.filter(item => item.ExternalId == id)[0];
+        var objectData = window.config[table].data.filter(item => item.ExternalId == externalId)[0];
         var fieldData = '';
         fieldMetaData.forEach(function(item){
             if (item.Type == 'Text')

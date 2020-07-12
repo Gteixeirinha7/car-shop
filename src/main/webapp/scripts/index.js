@@ -299,14 +299,14 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         var objectData = window.config[table].data.filter(item => item.ExternalId == externalId)[0];
         var fieldData = '';
         fieldMetaData.forEach(function(item){
-            var fieldData = ''
+            var fieldDatas = ''
             if (objectData && objectData[item.Field]){
-                fieldData = objectData[item.Field];
+                fieldDatas = objectData[item.Field];
             } else if (objectData[item.Field.split('Name')[0] + 'Data']) {
-                fieldData = objectData[item.Field.split('Name')[0]+'Data']['Name'];                
+                fieldDatas = objectData[item.Field.split('Name')[0]+'Data']['Name'];                
             }
             if (item.Type == 'Text')
-                fieldData += c.createSingleIput(table, item.Label, item.Field, (objectData  && objectData[item.Field] ? objectData[item.Field] : ''));
+                fieldData += c.createSingleIput(table, item.Label, item.Field, fieldDatas);
         }, { fieldData, objectData});
         var html  = `
         <div class="slds-form slds-grid">

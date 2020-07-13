@@ -323,7 +323,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
           <legend class="slds-form-element__legend slds-form-element__label">${label}</legend>
           <div class="slds-form-element__control">
             <span class="slds-radio">
-              <input onchange="window.checkFields('${field}', event)" type="radio" id="radio-${field}-sim" value="radio-${field}-sim" name="options-${field}" />
+              <input checked="${value}" onchange="window.checkFields('${field}', event)" type="radio" id="radio-${field}-sim" value="radio-${field}-sim" name="options-${field}" />
               <label class="slds-radio__label" for="radio-${field}-sim">
                 <span class="slds-radio_faux"></span>
                 <span class="slds-form-element__label">Sim</span>

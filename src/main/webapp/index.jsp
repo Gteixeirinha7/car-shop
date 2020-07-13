@@ -13,7 +13,49 @@
             'SalesMan' : {
                 'fields' :     ['Name', 'CPF', 'Age',   'Experience' , 'Goal', 'Email', 'Phone', 'CNH'],
                 'fieldsLabel': ['Nome' ,'CPF', 'Idade', 'Experiencia', 'Meta', 'Email', 'Telefone', 'CNH'],
-                'data' : {}
+                'data' : {},
+                'fieldsMetaData': [
+                    {
+                        'Type': 'Text',
+                        'Label': 'Nome',
+                        'Field': 'Name'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'CPF',
+                        'Field': 'CPF'
+                    },
+                    {
+                        'Type': 'Number',
+                        'Label': 'Idade',
+                        'Field': 'Age'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Experiencia',
+                        'Field': 'Experience'
+                    },
+                    {
+                        'Type': 'Number',
+                        'Label': 'Meta',
+                        'Field': 'Goal'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Email',
+                        'Field': 'Email'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Telefone',
+                        'Field': 'Phone'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'CNH',
+                        'Field': 'CNH'
+                    }
+                ]
             },
             'Car': {
                 'fields': ['Name', 'Fuel', 'Year', 'BrandData.Name', 'ModelData.Name', 'Armored', 'UsedCar', 'Color', 'Exchange'],
@@ -104,7 +146,54 @@
             'Client': {
                 'fields': ['Name', 'Type', 'Email', 'Phone', 'PostalCode' , 'City', 'Street', 'State', 'Country'],
                 'fieldsLabel': ['Nome', 'Tipo', 'Email', 'Telefone', 'CEP', 'Cidade', 'Rua', 'Estado', 'Pais'],
-                'data': {}
+                'data': {},
+                'fieldsMetaData': [
+                    {
+                        'Type': 'Text',
+                        'Label': 'Nome',
+                        'Field': 'Name'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Tipo',
+                        'Field': 'Type'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Email',
+                        'Field': 'Email'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Telefone',
+                        'Field': 'Phone'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'CEP',
+                        'Field': 'CEP'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Cidade',
+                        'Field': 'City'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Rua',
+                        'Field': 'Street'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Estado',
+                        'Field': 'State'
+                    },
+                    {
+                        'Type': 'Text',
+                        'Label': 'Pais',
+                        'Field': 'Country'
+                    }
+                ]
             }
         }
     </script>

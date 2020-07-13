@@ -297,18 +297,18 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             } else if (objectData && objectData[item.Field.split('Name')[0] + 'Data']) {
                 fieldDatas = objectData[item.Field.split('Name')[0]+'Data']['Name'];                
             }
-            if (item.Type == 'Text')
-                fieldData += c.createSingleIput(table, item.Label, item.Field, fieldDatas);
+            if (item.Type == 'Text' || item.Type == 'Number')
+                fieldData += c.createSingleIput(table, item.Label, item.Field, fieldDatas, item.Type );
         }, { fieldData, objectData});
         var html  = `
-        <div class="slds-form slds-grid">
+        <div class="slds-form slds-grid slds-wrap">
             ${fieldData}
         </div>
         `;
 
         return html;
     }
-    c.createSingleIput = function (table, label, field, value){
+    c.createSingleIput = function (table, label, field, value, type){
         if(c.objectData == null)
             c.objectData = {}
         c.objectData[field] = value;
@@ -317,7 +317,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="form-element-${field}-${table}">${label}</label>
                 <div class="slds-form-element__control">
-                    <input onchange="window.checkFields('${field}', event)" type="text" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" value="${value}" />
+                    <input onchange="window.checkFields('${field}', event)" type="${type}" id="form-element-${field}-${table}" placeholder="${label}" class="slds-input" value="${value}" />
                 </div>
             </div>
         </div>`;

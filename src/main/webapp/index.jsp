@@ -22,6 +22,16 @@
                 'fieldsMetaData': [
                     {
                         'Type': 'Text',
+                        'Label': 'Nome',
+                        'Field': 'Name'
+                    },
+                    {
+                        'Type': 'Number',
+                        'Label': 'Preço',
+                        'Field': 'Price'
+                    },
+                    {
+                        'Type': 'Text',
                         'Label': 'Gasolina',
                         'Field': 'Fuel'
                     },

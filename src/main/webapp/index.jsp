@@ -27,16 +27,16 @@
                     },
                     {
                         'Type': 'Number',
-                        'Label': 'Preço',
+                        'Label': 'Valor',
                         'Field': 'Price'
                     },
                     {
                         'Type': 'Text',
-                        'Label': 'Gasolina',
+                        'Label': 'Combustivel',
                         'Field': 'Fuel'
                     },
                     {
-                        'Type': 'Text',
+                        'Type': 'Number',
                         'Label': 'Ano',
                         'Field': 'Year'
                     },

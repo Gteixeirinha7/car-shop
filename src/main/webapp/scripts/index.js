@@ -270,14 +270,13 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     }
                     $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
                         function successCallback(response) {
-                            c.handleSucessEdit(response, table);
+                            c.handleSucessEdit(response, table, externalId);
                         },
                         function errorCallback(response) {
                             c.errorHandleSucessEdit(response)
                         }
                     );
                 }
-                c.objectData = null;
             }
         });
     };
@@ -322,15 +321,20 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             </div>
         </div>`;
     }
-    c.handleSucessEdit = function (response, table) {
+    c.handleSucessEdit = function (response, table, externalId) {
         if (response.data.error == 999) {
             Swal.fire(
                 'Error!',
                 response.data.description,
                 'warning'
-            );
+            ).then(function successCallback(response) {
+                c.handleEdit(table, externalId);
+            }, function errorCallback(response) {
+                c.handleEdit(table, externalId);
+            });
 
-        }else{
+        } else {
+            c.objectData = null;
             Swal.fire(
                 'Sucesso!',
                 'Registro Atualizado/Inserido com sucesso!',

@@ -171,7 +171,7 @@
                     {
                         'Type': 'Text',
                         'Label': 'CEP',
-                        'Field': 'CEP'
+                        'Field': 'PostalCode'
                     },
                     {
                         'Type': 'Text',

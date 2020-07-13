@@ -314,21 +314,21 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
             c.objectData = {}
         c.objectData[field] = value;
         return `
-        <fieldset class="slds-form-element slds-form-element_stacked">
+        <fieldset class="slds-size--1-of-2 slds-form-element slds-form-element_stacked">
           <legend class="slds-form-element__legend slds-form-element__label">${label}</legend>
           <div class="slds-form-element__control">
             <span class="slds-radio">
-              <input onchange="window.checkFields('${field}', event)" type="radio" id="radio-sim" value="radio-sim" name="options" />
-              <label class="slds-radio__label" for="radio-sim">
+              <input onchange="window.checkFields('${field}', event)" type="radio" id="radio-${field}-sim" value="radio-${field}-sim" name="options-${field}" />
+              <label class="slds-radio__label" for="radio-${field}-sim">
                 <span class="slds-radio_faux"></span>
                 <span class="slds-form-element__label">Sim</span>
               </label>
             </span>
             <span class="slds-radio">
-              <input  type="radio" id="radio-nao" value="radio-nao" name="options" />
-              <label class="slds-radio__label" for="radio-nao">
+              <input  type="radio" id="radio-${field}-nao" value="radio-${field}-nao" name="options-${field}" />
+              <label class="slds-radio__label" for="radio-${field}-nao">
                 <span class="slds-radio_faux"></span>
-                <span class="slds-form-element__label">Não</span>
+                <span class="slds-form-element__label">Nao</span>
               </label>
             </span>
           </div>

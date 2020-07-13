@@ -101,16 +101,6 @@
                         'Type': 'Text',
                         'Label': 'Cambio',
                         'Field': 'Exchange'
-                    },
-                    {
-                        'Type': 'Boolean',
-                        'Label': 'Blindado?',
-                        'Field': 'Armored'
-                    },
-                    {
-                        'Type': 'Boolean',
-                        'Label': 'Carro usado?',
-                        'Field': 'UsedCar'
                     }
                 ]
             },

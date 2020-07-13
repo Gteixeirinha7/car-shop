@@ -271,6 +271,11 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                     if (table == 'Client') {
                         c.objectData['Active'] = true;
                     }
+                    if (table == 'Car') {
+                        c.objectData['UsedCar'] = c.objectData['UsedCar'] ? c.objectData['UsedCar'] : false;
+                        c.objectData['Armored'] = c.objectData['Armored'] ? c.objectData['Armored'] : true;
+
+                    }
                     $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
                         function successCallback(response) {
                             c.handleSucessEdit(response, table, externalId);

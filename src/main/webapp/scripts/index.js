@@ -269,7 +269,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                         c.objectData['ExternalId'] = externalId;
                     }
                     if (table == 'Client') {
-                        c.objectData['isActive'] = true;
+                        c.objectData['Active'] = true;
                     }
                     $http.post('https://car-shop-ftt.herokuapp.com/' + table, c.objectData, req).then(
                         function successCallback(response) {

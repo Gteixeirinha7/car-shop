@@ -283,7 +283,12 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
     c.checkFields = function (field, event){
         if (c.objectData == null)
             c.objectData = {};
-        c.objectData[field] = event.target.value;
+        if (event.target.value.includes('sim'))
+            c.objectData[field] = true;
+        else if (event.target.value.includes('nao'))
+            c.objectData[field] = false;
+        else
+            c.objectData[field] = event.target.value;
     };
     c.getBody = function (table, externalId){
         var fieldMetaData = window.config[table]['fieldsMetaData'];
@@ -325,7 +330,7 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
               </label>
             </span>
             <span class="slds-radio">
-              <input  type="radio" id="radio-${field}-nao" value="radio-${field}-nao" name="options-${field}" />
+              <input onchange="window.checkFields('${field}', event)" type="radio" id="radio-${field}-nao" value="radio-${field}-nao" name="options-${field}" />
               <label class="slds-radio__label" for="radio-${field}-nao">
                 <span class="slds-radio_faux"></span>
                 <span class="slds-form-element__label">Nao</span>

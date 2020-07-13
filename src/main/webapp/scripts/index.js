@@ -297,7 +297,9 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
                 fieldDatas = objectData[item.Field.split('Name')[0]+'Data']['Name'];                
             }
             if (item.Type == 'Text' || item.Type == 'Number')
-                fieldData += c.createSingleIput(table, item.Label, item.Field, fieldDatas, item.Type );
+                fieldData += c.createSingleIput(table, item.Label, item.Field, fieldDatas, item.Type);
+            else if (item.Type == 'Boolean')
+                fieldData += c.createSingleIputBoolean(table, item.Label, item.Field, fieldDatas, item.Type);
         }, { fieldData, objectData});
         var html  = `
         <div class="slds-form slds-grid slds-wrap">
@@ -306,6 +308,32 @@ app.controller('ItemController', ['$scope', '$http', function (scope, $http) {
         `;
 
         return html;
+    }
+    c.createSingleIputBoolean = function (table, label, field, value, type) {
+        if (c.objectData == null)
+            c.objectData = {}
+        c.objectData[field] = value;
+        return `
+        <fieldset class="slds-form-element slds-form-element_stacked">
+          <legend class="slds-form-element__legend slds-form-element__label">${label}</legend>
+          <div class="slds-form-element__control">
+            <span class="slds-radio">
+              <input onchange="window.checkFields('${field}', event)" type="radio" id="radio-sim" value="radio-sim" name="options" />
+              <label class="slds-radio__label" for="radio-sim">
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">Sim</span>
+              </label>
+            </span>
+            <span class="slds-radio">
+              <input  type="radio" id="radio-nao" value="radio-nao" name="options" />
+              <label class="slds-radio__label" for="radio-nao">
+                <span class="slds-radio_faux"></span>
+                <span class="slds-form-element__label">Não</span>
+              </label>
+            </span>
+          </div>
+        </fieldset>`;
+
     }
     c.createSingleIput = function (table, label, field, value, type){
         if(c.objectData == null)
